@@ -29,11 +29,11 @@ class User(AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    bio = models.TextField(blank=True, default="Passionate about Data Science & Machine Learning.")
-    education = models.CharField(max_length=150, blank=True, default="B.Tech Computer Science")
-    company = models.CharField(max_length=150, blank=True, default="IntelliHub SaaS User")
-    github = models.URLField(blank=True, default="https://github.com")
-    linkedin = models.URLField(blank=True, default="https://linkedin.com")
+    bio = models.TextField(blank=True, default="")
+    education = models.CharField(max_length=150, blank=True, default="")
+    company = models.CharField(max_length=150, blank=True, default="")
+    github = models.URLField(blank=True, default="")
+    linkedin = models.URLField(blank=True, default="")
     photo = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     dark_mode = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -11,17 +11,17 @@
                 <i class="fa-solid fa-circle-user fs-1 text-info" style="font-size: 5rem !important;"></i>
             </div>
             <h4 class="fw-bold mb-1">{{ user.username }}</h4>
-            <p class="text-muted small mb-3">{{ user.profile.bio }}</p>
+            <p class="text-muted small mb-3">{{ user.profile.bio|default:"No bio added yet." }}</p>
             <hr class="border-secondary">
             
             <div class="text-start">
                 <div class="d-flex justify-content-between mb-2">
                     <span class="text-muted"><i class="fa-solid fa-graduation-cap me-2"></i>Education:</span>
-                    <span class="fw-semibold">{{ user.profile.education }}</span>
+                    <span class="fw-semibold">{{ user.profile.education|default:"Not specified" }}</span>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <span class="text-muted"><i class="fa-solid fa-building me-2"></i>Company:</span>
-                    <span class="fw-semibold">{{ user.profile.company }}</span>
+                    <span class="fw-semibold">{{ user.profile.company|default:"Not specified" }}</span>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <span class="text-muted"><i class="fa-solid fa-database me-2"></i>Uploaded Datasets:</span>
