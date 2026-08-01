@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Model Leaderboard - IntelliHub AI{% endblock %}
+{% block page_title %}Platform Model Leaderboard{% endblock %}
+
+{% block content %}
+<div class="glass-card p-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <h4 class="fw-bold mb-1"><i class="fa-solid fa-trophy text-warning me-2"></i> Model Leaderboard Rankings</h4>
+            <p class="text-muted small mb-0">Ranked by overall score & accuracy across trained algorithms</p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <div class="btn-group btn-group-sm" role="group">
+                <a href="?scope=my" class="btn {% if scope != 'global' %}btn-info{% else %}btn-outline-secondary{% endif %}">
+                    <i class="fa-solid fa-user me-1"></i> My Models
+                </a>
+                <a href="?scope=global" class="btn {% if scope == 'global' %}btn-info{% else %}btn-outline-secondary{% endif %}">
+                    <i class="fa-solid fa-globe me-1"></i> All Platform Models
+                </a>
+            </div>
+            <a href="{% url 'ml_studio:home' %}" class="btn btn-gradient-primary btn-sm"><i class="fa-solid fa-plus me-1"></i> Train Model</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Model Name</th>
+                    <th>Algorithm</th>
+                    <th>Dataset</th>
+                    <th>Score / Accuracy</th>
+                    <th>Developer</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in models %}
+                <tr>
+                    <td class="fw-bold">
+                        {% if forloop.counter == 1 %}
+                        <span class="badge bg-warning text-dark"><i class="fa-solid fa-crown me-1"></i> #1</span>
+                        {% elif forloop.counter == 2 %}
+                        <span class="badge bg-secondary"><i class="fa-solid fa-medal me-1"></i> #2</span>
+                        {% elif forloop.counter == 3 %}
+                        <span class="badge bg-danger"><i class="fa-solid fa-award me-1"></i> #3</span>
+                        {% else %}
+                        #{{ forloop.counter }}
+                        {% endif %}
+                    </td>
+                    <td class="fw-bold text-light">{{ m.name }}</td>
+                    <td><span class="badge bg-primary">{{ m.algorithm }}</span></td>
+                    <td>{{ m.dataset.name }}</td>
+                    <td class="text-success fw-bold fs-5">{{ m.formatted_accuracy }}</td>
+                    <td class="small text-muted"><i class="fa-solid fa-circle-user me-1 text-info"></i>{{ m.user.username }}</td>
+                    <td>
+                        <a href="{% url 'ml_studio:predict' m.id %}" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-bolt me-1"></i> Predict</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-4">No models ranked on leaderboard yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

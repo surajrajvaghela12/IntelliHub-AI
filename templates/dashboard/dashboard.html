@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %}Interactive Dashboard - IntelliHub AI{% endblock %}
+{% block page_title %}Power BI Style Interactive SaaS Dashboard{% endblock %}
+
+{% block content %}
+<!-- Metric Cards Row -->
+<div class="row g-4 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-database stat-icon text-info"></i>
+            <span class="text-muted d-block small">Active Datasets</span>
+            <div class="stat-value text-info">{{ total_datasets }}</div>
+            <span class="small text-muted">Your Datasets: <b>{{ user_datasets }}</b></span>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-users stat-icon text-purple" style="color:#a855f7"></i>
+            <span class="text-muted d-block small">Platform Users</span>
+            <div class="stat-value" style="color:#a855f7">{{ total_users }}</div>
+            <span class="small text-muted">SaaS Roles Active</span>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-robot stat-icon text-success"></i>
+            <span class="text-muted d-block small">Trained AI Models</span>
+            <div class="stat-value text-success">{{ total_models }}</div>
+            <span class="small text-muted">Your Trained: <b>{{ user_models }}</b></span>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-bullseye stat-icon text-amber" style="color:#f59e0b"></i>
+            <span class="text-muted d-block small">Average Accuracy</span>
+            <div class="stat-value" style="color:#f59e0b">{{ avg_accuracy }}%</div>
+            <span class="small text-muted">Total Predictions: <b>{{ total_predictions }}</b></span>
+        </div>
+    </div>
+</div>
+
+<!-- Interactive Charts Row -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-6">
+        <div class="glass-card p-4">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-pie text-info me-2"></i> Models Trained by Algorithm</h5>
+            <div id="modelsChartPlot" style="height: 380px;"></div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="glass-card p-4">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-column text-success me-2"></i> Model Accuracy Comparison (%)</h5>
+            <div id="accuracyChartPlot" style="height: 380px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Datasets & Models Tables -->
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="glass-card p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0"><i class="fa-solid fa-folder-open text-info me-2"></i> Your Recent Datasets</h5>
+                <a href="{% url 'datasets:list' %}" class="btn btn-sm btn-outline-info">View All</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-dark table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Dataset Name</th>
+                            <th>Format</th>
+                            <th>Rows</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in recent_datasets %}
+                        <tr>
+                            <td class="fw-bold text-light">{{ d.name }}</td>
+                            <td><span class="badge bg-secondary">{{ d.file_format }}</span></td>
+                            <td>{{ d.latest_version.row_count|default:"--" }}</td>
+                            <td>
+                                <a href="{% url 'datasets:detail' d.id %}" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-3">No datasets uploaded yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="glass-card p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0"><i class="fa-solid fa-robot text-success me-2"></i> Your Recent ML Models</h5>
+                <a href="{% url 'ml_studio:home' %}" class="btn btn-sm btn-outline-success">Train New</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-dark table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Model Name</th>
+                            <th>Algorithm</th>
+                            <th>Score</th>
+                            <th>Predict</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in recent_models %}
+                        <tr>
+                            <td class="fw-bold text-light">{{ m.name|truncatechars:25 }}</td>
+                            <td><span class="badge bg-primary">{{ m.algorithm }}</span></td>
+                            <td class="text-success fw-bold">{{ m.accuracy|floatformat:1 }}%</td>
+                            <td>
+                                <a href="{% url 'ml_studio:predict' m.id %}" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-bolt"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-3">No models trained yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var modelsChartData = {{ chart_models_json|safe }};
+        Plotly.newPlot('modelsChartPlot', modelsChartData.data, modelsChartData.layout, {responsive: true});
+
+        var accuracyChartData = {{ chart_accuracy_json|safe }};
+        Plotly.newPlot('accuracyChartPlot', accuracyChartData.data, accuracyChartData.layout, {responsive: true});
+    });
+</script>
+{% endblock %}

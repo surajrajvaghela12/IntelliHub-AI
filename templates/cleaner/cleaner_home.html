@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Data Cleaner - IntelliHub AI{% endblock %}
+{% block page_title %}AI Data Cleaning Engine{% endblock %}
+
+{% block content %}
+<!-- Dataset Selector Bar -->
+<div class="glass-card p-3 mb-4">
+    <form method="GET" class="row g-2 align-items-center">
+        <div class="col-md-3">
+            <label class="form-label text-light fw-bold small mb-0"><i class="fa-solid fa-database text-info me-1"></i> Active Dataset:</label>
+        </div>
+        <div class="col-md-7">
+            <select name="dataset_id" class="form-select bg-dark text-light border-secondary" onchange="this.form.submit()">
+                {% for d in datasets %}
+                <option value="{{ d.id }}" {% if d.id == selected_dataset.id %}selected{% endif %}>
+                    {{ d.name }} (v{{ d.latest_version.version_number }}) - {{ d.latest_version.row_count }} rows
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <a href="{% url 'datasets:detail' selected_dataset.id %}" class="btn btn-outline-info w-100"><i class="fa-solid fa-eye me-1"></i> Inspect</a>
+        </div>
+    </form>
+</div>
+
+<!-- Header Hero with 1-Click Auto Clean -->
+<div class="glass-card p-4 p-md-5 mb-4 text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.3) 0%, rgba(99, 102, 241, 0.2) 100%); border: 1px solid rgba(56, 189, 248, 0.3);">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <span class="badge bg-warning text-dark mb-2 font-monospace fw-bold"><i class="fa-solid fa-robot me-1"></i> Automated AI Cleaning</span>
+            <h2 class="fw-bold mb-2">Automated 1-Click Data Cleaning</h2>
+            <p class="text-light opacity-75 mb-3">
+                Removes duplicate rows using <code>drop_duplicates()</code>, fills missing values using mean/mode <code>fillna()</code>, caps outliers using 1.5*IQR bounds, and encodes categorical columns!
+            </p>
+            <div class="d-flex gap-3">
+                <a href="{% url 'cleaner:auto_clean' selected_dataset.id %}" class="btn btn-gradient-primary fs-5 px-4 py-2" onclick="return confirm('Trigger full automated AI clean on {{ selected_dataset.name }}?')">
+                    <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Execute Auto Clean
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 text-center mt-3 mt-md-0">
+            <div class="p-3 bg-dark bg-opacity-75 rounded-4 border border-info">
+                <span class="text-muted d-block small">Health Status</span>
+                <h3 class="fw-bold text-info mb-1">
+                    {% if recommendations %}Needs Attention{% else %}Optimal Clean{% endif %}
+                </h3>
+                <span class="badge bg-danger">{{ recommendations|length }} Recommendation(s)</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AI Recommendations Grid -->
+<h4 class="fw-bold mb-3"><i class="fa-solid fa-lightbulb text-warning me-2"></i> System Cleaning Recommendations</h4>
+<div class="row g-4 mb-4">
+    {% for rec in recommendations %}
+    <div class="col-md-6 col-lg-4">
+        <div class="glass-card p-4 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-{{ rec.badge }} text-uppercase">{{ rec.type }}</span>
+                    <span class="text-muted small font-monospace">{{ rec.column }}</span>
+                </div>
+                <h6 class="fw-bold text-light mb-2">{{ rec.title }}</h6>
+                <p class="text-muted small mb-3">{{ rec.description }}</p>
+            </div>
+            <div>
+                <form method="POST" action="{% url 'cleaner:custom_clean' selected_dataset.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="{{ rec.action }}">
+                    <input type="hidden" name="column" value="{{ rec.column }}">
+                    <button type="submit" class="btn btn-sm btn-outline-info w-100">
+                        <i class="fa-solid fa-check me-1"></i> Apply Recommendation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="glass-card p-4 text-center text-success">
+            <i class="fa-solid fa-circle-check fs-1 mb-2"></i>
+            <h5 class="fw-bold">No Data Cleaning Problems Detected!</h5>
+            <p class="text-muted mb-0">Dataset is clean, free of missing values, duplicates, or severe outliers.</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Target Custom Cleaning Action Box -->
+<div class="glass-card p-4 mb-4">
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-sliders text-info me-2"></i> Target Custom Cleaning Operations</h5>
+    <form method="POST" action="{% url 'cleaner:custom_clean' selected_dataset.id %}" class="row g-3 align-items-end">
+        {% csrf_token %}
+        <div class="col-md-5">
+            <label class="form-label text-light">Cleaning Operation</label>
+            <select name="action" class="form-select bg-dark text-light border-secondary" required>
+                <option value="drop_duplicates">Remove Duplicate Rows (drop_duplicates)</option>
+                <option value="drop_nulls">Drop Null Rows (dropna)</option>
+                <option value="fill_mean">Fill Missing Values with Mean (fillna)</option>
+                <option value="fill_median">Fill Missing Values with Median (fillna)</option>
+                <option value="fill_mode">Fill Missing Values with Mode (fillna)</option>
+                <option value="remove_outliers_iqr">Remove Outliers (IQR Method)</option>
+                <option value="encode_categories">Encode Categorical Columns (LabelEncoder)</option>
+                <option value="standard_scaling">Feature Standard Scaling (StandardScaler)</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label text-light">Target Column (Optional)</label>
+            <select name="column" class="form-select bg-dark text-light border-secondary">
+                <option value="">All Applicable Columns</option>
+                {% for h in headers %}
+                <option value="{{ h }}">{{ h }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-gradient-primary w-100"><i class="fa-solid fa-play me-1"></i> Apply Operation</button>
+        </div>
+    </form>
+</div>
+
+<!-- Cleaning Audit Trail History -->
+<div class="glass-card p-4">
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left text-info me-2"></i> Cleaning History Audit Log</h5>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Action</th>
+                    <th>Before Rows</th>
+                    <th>After Rows</th>
+                    <th>Before Missing</th>
+                    <th>After Missing</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in history %}
+                <tr>
+                    <td class="small text-muted">{{ log.created_at|date:"M d, H:i:s" }}</td>
+                    <td class="fw-bold text-info">{{ log.action_type }}</td>
+                    <td>{{ log.before_rows }}</td>
+                    <td class="text-success fw-bold">{{ log.after_rows }}</td>
+                    <td class="text-warning">{{ log.before_missing }}</td>
+                    <td class="text-success fw-bold">{{ log.after_missing }}</td>
+                    <td class="small text-muted">{{ log.details|truncatechars:70 }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-3">No cleaning actions logged yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

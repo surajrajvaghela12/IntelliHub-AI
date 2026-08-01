@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block title %}Machine Learning Studio - IntelliHub AI{% endblock %}
+{% block page_title %}Machine Learning Studio & AutoML Engine{% endblock %}
+
+{% block content %}
+<!-- Dataset Selector & AutoML Bar -->
+<div class="glass-card p-3 mb-4">
+    <form method="GET" class="row g-2 align-items-center">
+        <div class="col-md-3">
+            <label class="form-label text-light fw-bold small mb-0"><i class="fa-solid fa-database text-info me-1"></i> Active Dataset:</label>
+        </div>
+        <div class="col-md-6">
+            <select name="dataset_id" class="form-select bg-dark text-light border-secondary" onchange="this.form.submit()">
+                {% for d in datasets %}
+                <option value="{{ d.id }}" {% if d.id == selected_dataset.id %}selected{% endif %}>
+                    {{ d.name }} (v{{ d.latest_version.version_number }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'ml_studio:leaderboard' %}" class="btn btn-outline-info w-100"><i class="fa-solid fa-trophy me-1"></i> Leaderboard</a>
+        </div>
+    </form>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Model Configuration Panel -->
+    <div class="col-lg-5">
+        <div class="glass-card p-4">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-sliders text-info me-2"></i> Model Configuration (Units 3, 4, 5 Syllabus)</h5>
+            
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label text-light">Target Variable (y):</label>
+                    <select name="target_col" class="form-select bg-dark text-light border-secondary" required>
+                        {% for col in all_columns %}
+                        <option value="{{ col }}" {% if col == target_col %}selected{% endif %}>{{ col }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-light">Feature Variables (X):</label>
+                    <select name="feature_cols" class="form-select bg-dark text-light border-secondary" multiple style="height: 120px;">
+                        {% for col in all_columns %}
+                        {% if col != target_col %}
+                        <option value="{{ col }}" selected>{{ col }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-light">Model Category:</label>
+                    <select name="model_type" class="form-select bg-dark text-light border-secondary" id="modelTypeSelect">
+                        <option value="CLASSIFICATION" {% if model_type == 'CLASSIFICATION' %}selected{% endif %}>Classification (kNN, Decision Tree, Random Forest, SVM)</option>
+                        <option value="REGRESSION" {% if model_type == 'REGRESSION' %}selected{% endif %}>Regression (Simple/Multiple, Polynomial, Ridge, Lasso)</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-light">Algorithm:</label>
+                    <select name="algorithm" class="form-select bg-dark text-light border-secondary">
+                        <option value="random_forest">Random Forest Classifier (Ensemble)</option>
+                        <option value="decision_tree">Decision Tree Classifier (Entropy Criterion - Unit 5.1)</option>
+                        <option value="knn">k-Nearest Neighbors (kNN - Unit 5.1)</option>
+                        <option value="svm">Support Vector Machine (SVM - Unit 5.2)</option>
+                        <option value="multiple_linear">Multiple / Simple Linear Regression (Unit 4.1)</option>
+                        <option value="polynomial">Polynomial Regression (Unit 4.2)</option>
+                        <option value="ridge">Ridge Regression</option>
+                        <option value="lasso">Lasso Regression</option>
+                    </select>
+                </div>
+
+                <button type="submit" name="train_now" class="btn btn-gradient-primary w-100 py-2 fs-5">
+                    <i class="fa-solid fa-play me-2"></i> Train Model Now
+                </button>
+            </form>
+
+            <hr class="border-secondary my-4">
+
+            <!-- AutoML Trigger -->
+            <form method="POST" action="{% url 'ml_studio:automl' selected_dataset.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="target_col" value="{{ target_col }}">
+                <button type="submit" class="btn btn-outline-warning w-100 py-2 fw-bold" onclick="return confirm('Run AutoML across all 8 algorithms on {{ selected_dataset.name }}?')">
+                    <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Run AutoML (Auto-Select Best Model)
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Metrics & Evaluation Results Panel -->
+    <div class="col-lg-7">
+        <div class="glass-card p-4 h-100">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-square-poll-vertical text-success me-2"></i> Evaluation Metrics & Performance</h5>
+            
+            {% if metrics %}
+            <div class="row g-3 mb-4">
+                {% if model_type == 'REGRESSION' %}
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 text-center border border-info">
+                        <span class="text-muted d-block small">R-Squared (R²)</span>
+                        <h4 class="fw-bold text-info mb-0">{{ metrics.r2_score }}</h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 text-center border border-success">
+                        <span class="text-muted d-block small">MAE</span>
+                        <h4 class="fw-bold text-success mb-0">{{ metrics.mae }}</h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 text-center border border-warning">
+                        <span class="text-muted d-block small">MSE</span>
+                        <h4 class="fw-bold text-warning mb-0">{{ metrics.mse }}</h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 text-center border border-danger">
+                        <span class="text-muted d-block small">RMSE</span>
+                        <h4 class="fw-bold text-danger mb-0">{{ metrics.rmse }}</h4>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 text-center border border-success">
+                        <span class="text-muted d-block small">Accuracy</span>
+                        <h4 class="fw-bold text-success mb-0">{{ metrics.accuracy|floatformat:1 }}%</h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 text-center border border-danger">
+                        <span class="text-muted d-block small">Error Rate</span>
+                        <h4 class="fw-bold text-danger mb-0">{{ metrics.error_rate }}</h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 text-center border border-info">
+                        <span class="text-muted d-block small">Sensitivity</span>
+                        <h4 class="fw-bold text-info mb-0">{{ metrics.sensitivity }}</h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 text-center border border-warning">
+                        <span class="text-muted d-block small">Specificity</span>
+                        <h4 class="fw-bold text-warning mb-0">{{ metrics.specificity }}</h4>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Confusion Matrix Display (Unit 5.3 Syllabus) -->
+            {% if metrics.confusion_matrix %}
+            <div class="p-4 bg-dark bg-opacity-50 rounded-4 border border-secondary mb-4">
+                <h6 class="fw-bold mb-3"><i class="fa-solid fa-border-all text-info me-2"></i> Confusion Matrix (Unit 5.3 Syllabus)</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-dark text-center align-middle m-0" style="max-width: 300px; margin: 0 auto !important;">
+                        <tbody>
+                            {% for row in metrics.confusion_matrix %}
+                            <tr>
+                                {% for val in row %}
+                                <td class="fw-bold fs-5 bg-primary bg-opacity-25">{{ val }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if trained_model_obj %}
+            <div class="text-center mt-3">
+                <a href="{% url 'ml_studio:predict' trained_model_obj.id %}" class="btn btn-success px-4 py-2">
+                    <i class="fa-solid fa-bolt me-2"></i> Make Real-time Predictions Now
+                </a>
+            </div>
+            {% endif %}
+
+            {% else %}
+            <div class="text-center text-muted py-5 my-5">
+                <i class="fa-solid fa-brain fs-1 mb-3 opacity-50"></i>
+                <h5>Select Target Column and Algorithm to Train Model</h5>
+                <p class="small">Calculates R², MAE, MSE for Regression or Confusion Matrix & Accuracy for Classification.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Saved Models for Current Dataset -->
+<div class="glass-card p-4">
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-floppy-disk text-info me-2"></i> Models Trained on {{ selected_dataset.name }}</h5>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Model Name</th>
+                    <th>Algorithm</th>
+                    <th>Target Column</th>
+                    <th>Score / Accuracy</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in user_models %}
+                <tr>
+                    <td class="fw-bold text-light">{{ m.name }}</td>
+                    <td><span class="badge bg-primary">{{ m.algorithm }}</span></td>
+                    <td>{{ m.target_column }}</td>
+                    <td class="text-success fw-bold">{{ m.accuracy|floatformat:1 }}%</td>
+                    <td class="small text-muted">{{ m.created_at|date:"M d, H:i" }}</td>
+                    <td>
+                        <a href="{% url 'ml_studio:predict' m.id %}" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-bolt me-1"></i> Predict</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted py-3">No trained models saved for this dataset yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

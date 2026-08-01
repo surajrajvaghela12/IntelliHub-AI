@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Model Marketplace - IntelliHub AI{% endblock %}
+{% block page_title %}Public Model Marketplace{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    {% for m in models %}
+    <div class="col-md-6 col-lg-4">
+        <div class="glass-card p-4 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-primary text-uppercase">{{ m.algorithm }}</span>
+                    <span class="badge bg-success">{{ m.accuracy|floatformat:1 }}% Score</span>
+                </div>
+                <h5 class="fw-bold text-light mb-1">{{ m.name }}</h5>
+                <p class="text-muted small mb-2">Dataset: <b>{{ m.dataset.name }}</b></p>
+                <p class="text-muted small mb-3">Target: <code>{{ m.target_column }}</code></p>
+            </div>
+            <div>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
+                    <span class="small text-muted">By {{ m.user.username }}</span>
+                    <a href="{% url 'ml_studio:predict' m.id %}" class="btn btn-sm btn-gradient-primary">
+                        <i class="fa-solid fa-bolt me-1"></i> Use Model
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+        <div class="glass-card p-5">
+            <i class="fa-solid fa-store fs-1 text-muted mb-3"></i>
+            <h4>No Public Models in Marketplace</h4>
+            <p class="text-muted">Train an AI model and publish it to the marketplace!</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

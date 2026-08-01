@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Universal Web Scraper - IntelliHub AI{% endblock %}
+{% block page_title %}Universal Web Scraper & Dataset Extractor{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mb-4">
+    <div class="col-lg-10">
+        <div class="glass-card p-4 p-md-5">
+            <h4 class="fw-bold mb-2"><i class="fa-solid fa-spider text-info me-2"></i> Universal Web Scraper</h4>
+            <p class="text-muted mb-4">Extract structured dataset tables from <b>ANY web URL</b> (HTML tables, direct CSV files, JSON feeds, card grids, or page content) using intelligent multi-strategy extraction!</p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row g-3 align-items-end mb-3">
+                    <div class="col-md-9">
+                        <label class="form-label text-light fw-semibold">Target Web Link / URL:</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark text-info border-secondary"><i class="fa-solid fa-globe"></i></span>
+                            <input type="text" name="url" value="{{ url_input }}" class="form-control bg-dark text-light border-secondary p-2" placeholder="Paste any URL e.g. https://en.wikipedia.org/wiki/List_of_countries_by_GDP or direct CSV/JSON link" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" name="scrape_now" class="btn btn-gradient-primary w-100 py-2 fs-6">
+                            <i class="fa-solid fa-spider me-1"></i> Extract Web Data
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Extracted Data Tables Preview -->
+{% if tables %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="glass-card p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold text-success mb-0"><i class="fa-solid fa-circle-check me-2"></i> Extracted Dataset Tables ({{ tables|length }})</h5>
+                <span class="badge bg-info text-dark font-monospace fs-6">URL Scraped Successfully</span>
+            </div>
+            
+            {% for tbl in tables %}
+            <div class="p-3 bg-dark bg-opacity-75 rounded-3 border border-secondary mb-4">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <div>
+                        <h6 class="fw-bold text-light mb-1">
+                            <i class="fa-solid fa-table text-info me-2"></i> {{ tbl.title|default:"Table #"|add:tbl.index }}
+                        </h6>
+                        <small class="text-muted">
+                            <span class="badge bg-secondary me-2">{{ tbl.rows }} Rows</span>
+                            <span class="badge bg-secondary">{{ tbl.cols }} Columns</span>
+                        </small>
+                    </div>
+                    <form method="POST" class="d-flex gap-2">
+                        {% csrf_token %}
+                        <input type="hidden" name="url" value="{{ url_input }}">
+                        <input type="hidden" name="table_index" value="{{ tbl.index }}">
+                        <input type="hidden" name="table_json" value="{{ tbl.json_data }}">
+                        <input type="text" name="dataset_name" value="Web_Scraped_{{ tbl.title|slugify|default:'Dataset' }}" class="form-control form-control-sm bg-dark text-light border-secondary" style="width: 200px;">
+                        <button type="submit" name="ingest_table" class="btn btn-sm btn-success text-nowrap">
+                            <i class="fa-solid fa-plus me-1"></i> Ingest into Dataset Manager
+                        </button>
+                    </form>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover table-sm text-nowrap mb-0">
+                        <thead>
+                            <tr>
+                                {% for h in tbl.headers %}
+                                <th class="text-info fw-semibold">{{ h }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in tbl.preview %}
+                            <tr>
+                                {% for key, val in row.items %}
+                                <td>{{ val }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

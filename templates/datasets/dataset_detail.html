@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ dataset.name }} - IntelliHub AI{% endblock %}
+{% block page_title %}{{ dataset.name }} (Dataset Profiler){% endblock %}
+
+{% block content %}
+<!-- Top Action Header -->
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+    <div>
+        <h3 class="fw-bold mb-1 text-light"><i class="fa-solid fa-database text-info me-2"></i> {{ dataset.name }}</h3>
+        <span class="badge bg-secondary me-2">Format: {{ dataset.file_format }}</span>
+        <span class="badge bg-info text-dark">Active: Version {{ version.version_number }}</span>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{% url 'cleaner:home' dataset.id %}" class="btn btn-warning"><i class="fa-solid fa-wand-magic-sparkles me-1"></i> Auto Clean</a>
+        <a href="{% url 'eda:home' dataset.id %}" class="btn btn-success"><i class="fa-solid fa-chart-line me-1"></i> Explore EDA</a>
+        <a href="{% url 'ml_studio:home' dataset.id %}" class="btn btn-info text-dark"><i class="fa-solid fa-robot me-1"></i> Train ML Model</a>
+        <a href="{% url 'datasets:download' dataset.id %}?version={{ version.id }}" class="btn btn-outline-light"><i class="fa-solid fa-download me-1"></i> Download CSV</a>
+    </div>
+</div>
+
+<!-- Dataset Metadata & Version Control Header Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-table-rows stat-icon text-info"></i>
+            <span class="text-muted d-block small">Total Rows</span>
+            <div class="stat-value text-info">{{ meta.row_count|default:0 }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-columns stat-icon text-success"></i>
+            <span class="text-muted d-block small">Columns</span>
+            <div class="stat-value text-success">{{ meta.column_count|default:0 }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-triangle-exclamation stat-icon text-warning"></i>
+            <span class="text-muted d-block small">Missing Values</span>
+            <div class="stat-value text-warning">{{ meta.missing_values|default:0 }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-copy stat-icon text-rose" style="color:#f43f5e"></i>
+            <span class="text-muted d-block small">Duplicate Rows</span>
+            <div class="stat-value" style="color:#f43f5e">{{ meta.duplicate_rows|default:0 }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Version History Section -->
+<div class="glass-card p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0"><i class="fa-solid fa-code-branch text-info me-2"></i> Dataset Version History</h5>
+        <!-- Modal Button to Upload New Version -->
+        <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#uploadVersionModal">
+            <i class="fa-solid fa-plus me-1"></i> Upload Version {{ all_versions|length|add:1 }}
+        </button>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+        {% for v in all_versions %}
+        <a href="?version={{ v.id }}" class="btn btn-sm {% if v.id == version.id %}btn-info text-dark font-monospace fw-bold{% else %}btn-outline-secondary text-light{% endif %}">
+            Version {{ v.version_number }} ({{ v.created_at|date:"M d, H:i" }})
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Columns Profiling Table (Pandas info() equivalent) -->
+<div class="glass-card p-4 mb-4">
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-list-check text-info me-2"></i> Column Data Types & Profiling (Pandas info())</h5>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Column Name</th>
+                    <th>Data Type</th>
+                    <th>Missing Values</th>
+                    <th>Missing %</th>
+                    <th>Unique Values</th>
+                    <th>Sample Values</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for col in meta.columns %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="fw-bold text-light">{{ col.name }}</td>
+                    <td>
+                        <span class="badge {% if col.is_numerical %}bg-primary{% else %}bg-secondary{% endif %}">
+                            {{ col.dtype }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if col.null_count > 0 %}
+                        <span class="text-warning fw-bold">{{ col.null_count }}</span>
+                        {% else %}
+                        <span class="text-success"><i class="fa-solid fa-check me-1"></i>0</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ col.null_pct }}%</td>
+                    <td>{{ col.unique_count }}</td>
+                    <td class="font-monospace small text-muted">{{ col.sample_values }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Summary Describe Statistics Table -->
+<div class="glass-card p-4 mb-4">
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-calculator text-info me-2"></i> Summary Statistics (Pandas describe())</h5>
+    <div class="table-responsive">
+        {{ describe_html|safe }}
+    </div>
+</div>
+
+<!-- Data Preview Table (Head 15 Rows) -->
+<div class="glass-card p-4 mb-4">
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-table text-info me-2"></i> Data Preview (First 15 Rows)</h5>
+    <div class="table-responsive">
+        <table class="table table-dark table-bordered table-striped text-nowrap">
+            <thead>
+                <tr>
+                    {% for h in headers %}
+                    <th class="bg-primary bg-opacity-25">{{ h }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in preview_rows %}
+                <tr>
+                    {% for cell in row %}
+                    <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Upload Version Modal -->
+<div class="modal fade" id="uploadVersionModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card border-secondary text-light">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-code-branch text-info me-2"></i> Upload New Version</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{% url 'datasets:upload_version' dataset.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p class="text-muted small">Upload an updated file (CSV/Excel/JSON) to create Version {{ all_versions|length|add:1 }}.</p>
+                    <input type="file" name="file" class="form-control bg-dark text-light border-secondary" required>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-gradient-primary">Upload Version</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Dataset - IntelliHub AI{% endblock %}
+{% block page_title %}Upload New Dataset{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-7">
+        <div class="glass-card p-4 p-md-5">
+            <h4 class="fw-bold mb-3"><i class="fa-solid fa-cloud-arrow-up text-info me-2"></i> Ingest New Dataset File</h4>
+            <p class="text-muted mb-4">Supported Formats: CSV, XLSX, XLS, JSON. Automatically calculates shape, missing values, duplicates, and column types.</p>
+            
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label text-light">Dataset Name</label>
+                    <input type="text" name="name" class="form-control bg-dark text-light border-secondary" placeholder="e.g. Sales Performance 2026" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label text-light">Description (Optional)</label>
+                    <textarea name="description" class="form-control bg-dark text-light border-secondary" rows="3" placeholder="Brief notes about data source or variables..."></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label text-light">Select File</label>
+                    <input type="file" name="file" class="form-control bg-dark text-light border-secondary" accept=".csv, .xlsx, .xls, .json" required>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'datasets:list' %}" class="btn btn-outline-light"><i class="fa-solid fa-arrow-left me-2"></i> Back to Manager</a>
+                    <button type="submit" class="btn btn-gradient-primary fs-5 px-4"><i class="fa-solid fa-upload me-2"></i> Upload & Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

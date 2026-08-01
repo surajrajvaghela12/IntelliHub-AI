@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Report Generator - IntelliHub AI{% endblock %}
+{% block page_title %}AI Automated PDF Report Generator{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <!-- Dataset Selector Bar -->
+        <div class="glass-card p-3 mb-4">
+            <form method="GET" class="row g-2 align-items-center">
+                <div class="col-md-3">
+                    <label class="form-label text-light fw-bold small mb-0"><i class="fa-solid fa-database text-info me-1"></i> Dataset for Report:</label>
+                </div>
+                <div class="col-md-9">
+                    <select name="dataset_id" class="form-select bg-dark text-light border-secondary" onchange="this.form.submit()">
+                        {% for d in datasets %}
+                        <option value="{{ d.id }}" {% if d.id == selected_dataset.id %}selected{% endif %}>
+                            {{ d.name }} (v{{ d.latest_version.version_number }}) - {{ d.latest_version.row_count }} rows
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <!-- Report Download Card -->
+        <div class="glass-card p-4 p-md-5 mb-4 text-center">
+            <i class="fa-solid fa-file-pdf fs-1 text-danger mb-3"></i>
+            <h3 class="fw-bold mb-2">Automated PDF Executive Report</h3>
+            <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
+                Generates a multi-page PDF document combining Executive Summary, Data Profiling, ML Model Performance Leaderboards, Confusion Matrices, and AI Strategic Recommendations using ReportLab!
+            </p>
+
+            <a href="{% url 'reports:download' selected_dataset.id %}" class="btn btn-gradient-primary btn-lg px-5 py-3 rounded-pill shadow">
+                <i class="fa-solid fa-file-arrow-down me-2"></i> Download PDF Report
+            </a>
+        </div>
+
+        <!-- Report Contents Structure Preview -->
+        <div class="glass-card p-4">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-list-check text-info me-2"></i> PDF Report Sections Included</h5>
+            
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 border border-secondary">
+                        <h6 class="fw-bold text-light mb-1"><i class="fa-solid fa-1 text-info me-2"></i> Executive Dataset Summary</h6>
+                        <p class="text-muted small mb-0">Total rows, columns, memory footprint, duplicate detection, missing values %.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 border border-secondary">
+                        <h6 class="fw-bold text-light mb-1"><i class="fa-solid fa-2 text-success me-2"></i> ML Model Leaderboard</h6>
+                        <p class="text-muted small mb-0">R², MAE, MSE, Accuracy, Sensitivity, Specificity, and Confusion Matrices.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 border border-secondary">
+                        <h6 class="fw-bold text-light mb-1"><i class="fa-solid fa-3 text-warning me-2"></i> AI Strategic Insights</h6>
+                        <p class="text-muted small mb-0">Actionable recommendations for data cleaning, model deployment, and scaling.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-dark bg-opacity-75 rounded-3 border border-secondary">
+                        <h6 class="fw-bold text-light mb-1"><i class="fa-solid fa-4 text-purple me-2" style="color:#a855f7"></i> Verification Signature & Timestamp</h6>
+                        <p class="text-muted small mb-0">User role verification, timestamp, and Lok Jagruti University syllabus branding.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

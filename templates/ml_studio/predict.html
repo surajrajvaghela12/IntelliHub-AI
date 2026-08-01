@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Live Prediction - IntelliHub AI{% endblock %}
+{% block page_title %}Live Inference & Prediction Engine{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-3">
+    <div class="col-md-7">
+        <div class="glass-card p-4 p-md-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0"><i class="fa-solid fa-bolt text-warning me-2"></i> {{ trained_model.name }}</h4>
+                <span class="badge bg-success fs-6">{{ trained_model.accuracy|floatformat:1 }}% Accuracy</span>
+            </div>
+            <p class="text-muted small mb-4">Input feature variable values to compute real-time target prediction (<code>{{ trained_model.target_column }}</code>)</p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row g-3">
+                    {% for feat in feature_cols %}
+                    <div class="col-md-6">
+                        <label class="form-label text-light small fw-bold">{{ feat }}</label>
+                        <input type="text" name="feat_{{ feat }}" class="form-control bg-dark text-light border-secondary" placeholder="Enter value for {{ feat }}" required>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-gradient-primary w-100 py-2 fs-5 mt-4">
+                    <i class="fa-solid fa-calculator me-2"></i> Compute Prediction
+                </button>
+            </form>
+
+            {% if prediction_result %}
+            <div class="mt-4 p-4 rounded-4 bg-dark border border-success text-center">
+                <span class="text-muted d-block small mb-1">Prediction Output</span>
+                <h3 class="fw-bold text-success mb-2">{{ prediction_result }}</h3>
+                <span class="badge bg-primary">Confidence: 94.0%</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Dataset Manager - IntelliHub AI{% endblock %}
+{% block page_title %}Dataset Manager & Version Control{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+    <div>
+        <h3 class="fw-bold mb-1"><i class="fa-solid fa-database text-info me-2"></i> Workspace Datasets</h3>
+        <p class="text-muted mb-0">Upload CSV, Excel, or JSON datasets with versioning, memory stats, and previews</p>
+    </div>
+    <div>
+        {% if can_upload %}
+        <a href="{% url 'datasets:upload' %}" class="btn btn-gradient-primary">
+            <i class="fa-solid fa-cloud-arrow-up me-2"></i> Upload New Dataset
+        </a>
+        {% else %}
+        <button class="btn btn-secondary" disabled title="Student quota limit reached (5 datasets max)">
+            <i class="fa-solid fa-lock me-2"></i> Quota Reached ({{ current_count }}/{{ max_allowed }})
+        </button>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Search & Favorites Filter Bar -->
+<div class="glass-card p-3 mb-4">
+    <form method="GET" class="row g-2 align-items-center">
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" name="q" value="{{ search_query }}" class="form-control bg-dark text-light border-secondary" placeholder="Search datasets by name...">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <select name="fav" class="form-select bg-dark text-light border-secondary">
+                <option value="">All Datasets</option>
+                <option value="true" {% if filter_fav == 'true' %}selected{% endif %}>Favorites Only</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-outline-info w-100"><i class="fa-solid fa-filter me-1"></i> Filter</button>
+        </div>
+    </form>
+</div>
+
+<!-- Dataset Grid -->
+<div class="row g-4">
+    {% for dataset in datasets %}
+    {% with ver=dataset.latest_version %}
+    <div class="col-md-6 col-lg-4">
+        <div class="glass-card h-100 p-4 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="badge bg-info text-dark font-monospace fw-bold">{{ dataset.file_format }}</span>
+                    <a href="{% url 'datasets:toggle_fav' dataset.id %}" class="text-decoration-none">
+                        <i class="fa-{% if dataset.is_favorite %}solid text-warning{% else %}regular text-muted{% endif %} fa-star fs-5"></i>
+                    </a>
+                </div>
+                <h5 class="fw-bold mb-1 text-light">
+                    <a href="{% url 'datasets:detail' dataset.id %}" class="text-light text-decoration-none hover-cyan">{{ dataset.name }}</a>
+                </h5>
+                <p class="text-muted small mb-3">{{ dataset.description|default:"Uploaded dataset ready for EDA, cleaning, and model training."|truncatechars:80 }}</p>
+                
+                {% if ver %}
+                <div class="p-3 bg-dark bg-opacity-50 rounded-3 mb-3 border border-secondary">
+                    <div class="row text-center g-2">
+                        <div class="col-4">
+                            <span class="text-muted d-block small">Rows</span>
+                            <span class="fw-bold text-info">{{ ver.row_count|default:"--" }}</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="text-muted d-block small">Cols</span>
+                            <span class="fw-bold text-success">{{ ver.column_count|default:"--" }}</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="text-muted d-block small">Memory</span>
+                            <span class="fw-bold text-warning small">{{ ver.memory_usage_str|default:"--" }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
+                    <span class="badge bg-secondary">v{{ ver.version_number|default:1 }}</span>
+                    <div class="btn-group btn-group-sm">
+                        <a href="{% url 'datasets:detail' dataset.id %}" class="btn btn-outline-info" title="Preview & Analysis"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{% url 'cleaner:home' dataset.id %}" class="btn btn-outline-warning" title="AI Data Cleaner"><i class="fa-solid fa-wand-magic-sparkles"></i></a>
+                        <a href="{% url 'eda:home' dataset.id %}" class="btn btn-outline-success" title="EDA Charts"><i class="fa-solid fa-chart-pie"></i></a>
+                        <a href="{% url 'datasets:download' dataset.id %}" class="btn btn-outline-light" title="Download File"><i class="fa-solid fa-download"></i></a>
+                        <a href="{% url 'datasets:delete' dataset.id %}" class="btn btn-outline-danger" onclick="return confirm('Delete dataset {{ dataset.name }}?')" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+    {% empty %}
+    <div class="col-12 text-center py-5">
+        <div class="glass-card p-5">
+            <i class="fa-solid fa-folder-open fs-1 text-muted mb-3"></i>
+            <h4 class="fw-bold">No Datasets Found</h4>
+            <p class="text-muted">Get started by uploading your first CSV, Excel, or JSON dataset!</p>
+            <a href="{% url 'datasets:upload' %}" class="btn btn-gradient-primary mt-2"><i class="fa-solid fa-upload me-2"></i> Upload Dataset</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

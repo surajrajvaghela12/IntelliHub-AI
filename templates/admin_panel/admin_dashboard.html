@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}SaaS Admin Panel - IntelliHub AI{% endblock %}
+{% block page_title %}SaaS Admin Panel & System Governance{% endblock %}
+
+{% block content %}
+<!-- SaaS Admin Top Banner -->
+<div class="glass-card p-4 mb-4" style="background: linear-gradient(135deg, rgba(244, 63, 94, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%); border: 1px solid rgba(244, 63, 94, 0.3);">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h3 class="fw-bold mb-1"><i class="fa-solid fa-user-shield text-rose me-2" style="color:#f43f5e"></i> SaaS Admin Control Center</h3>
+            <p class="text-light opacity-75 mb-0">Manage system users, dataset upload quotas, role permissions, and platform activity logs.</p>
+        </div>
+        <span class="badge bg-danger fs-6">Admin Master Role</span>
+    </div>
+</div>
+
+<!-- Admin Stats Row -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-users stat-icon text-info"></i>
+            <span class="text-muted d-block small">Total Users</span>
+            <div class="stat-value text-info">{{ total_users }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-database stat-icon text-success"></i>
+            <span class="text-muted d-block small">Total Datasets</span>
+            <div class="stat-value text-success">{{ total_datasets }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-robot stat-icon text-warning"></i>
+            <span class="text-muted d-block small">Trained Models</span>
+            <div class="stat-value text-warning">{{ total_models }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-card stat-card">
+            <i class="fa-solid fa-bolt stat-icon text-purple" style="color:#a855f7"></i>
+            <span class="text-muted d-block small">Total Predictions</span>
+            <div class="stat-value" style="color:#a855f7">{{ total_predictions }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- User Management Table -->
+<div class="glass-card p-4 mb-4">
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-users-gear text-info me-2"></i> User Role & Quota Governance</h5>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Upload Quota</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td class="fw-bold text-light">{{ u.username }}</td>
+                    <td class="small text-muted">{{ u.email }}</td>
+                    <td>
+                        <form method="POST" class="d-inline-block">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="change_role">
+                            <input type="hidden" name="user_id" value="{{ u.id }}">
+                            <select name="role" class="form-select form-select-sm bg-dark text-light border-secondary" onchange="this.form.submit()">
+                                <option value="STUDENT" {% if u.role == 'STUDENT' %}selected{% endif %}>Student</option>
+                                <option value="RESEARCHER" {% if u.role == 'RESEARCHER' %}selected{% endif %}>Researcher</option>
+                                <option value="DATA_SCIENTIST" {% if u.role == 'DATA_SCIENTIST' %}selected{% endif %}>Data Scientist</option>
+                                <option value="COMPANY" {% if u.role == 'COMPANY' %}selected{% endif %}>Company</option>
+                                <option value="ADMIN" {% if u.role == 'ADMIN' %}selected{% endif %}>Admin</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td>
+                        {% if u.role == 'STUDENT' %}
+                        <span class="badge bg-secondary">Max 5 Datasets</span>
+                        {% else %}
+                        <span class="badge bg-success">Unlimited</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if u.is_banned %}
+                        <span class="badge bg-danger"><i class="fa-solid fa-ban me-1"></i> Banned</span>
+                        {% else %}
+                        <span class="badge bg-success"><i class="fa-solid fa-check me-1"></i> Active</span>
+                        {% endif %}
+                    </td>
+                    <td class="small text-muted">{{ u.date_joined|date:"M d, Y" }}</td>
+                    <td>
+                        <form method="POST" class="d-inline-block">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="toggle_ban">
+                            <input type="hidden" name="user_id" value="{{ u.id }}">
+                            <button type="submit" class="btn btn-sm {% if u.is_banned %}btn-outline-success{% else %}btn-outline-danger{% endif %}">
+                                {% if u.is_banned %}Unban User{% else %}Ban User{% endif %}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

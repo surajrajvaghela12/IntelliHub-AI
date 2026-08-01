@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% block title %}Exploratory Data Analysis - IntelliHub AI{% endblock %}
+{% block page_title %}Exploratory Data Analysis (EDA Engine){% endblock %}
+
+{% block content %}
+<!-- Dataset Selection Bar -->
+<div class="glass-card p-3 mb-4">
+    <form method="GET" class="row g-2 align-items-center">
+        <div class="col-md-3">
+            <label class="form-label text-light fw-bold small mb-0"><i class="fa-solid fa-database text-info me-1"></i> Dataset for EDA:</label>
+        </div>
+        <div class="col-md-7">
+            <select name="dataset_id" class="form-select bg-dark text-light border-secondary" onchange="this.form.submit()">
+                {% for d in datasets %}
+                <option value="{{ d.id }}" {% if d.id == selected_dataset.id %}selected{% endif %}>
+                    {{ d.name }} (v{{ d.latest_version.version_number }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <a href="{% url 'cleaner:home' selected_dataset.id %}" class="btn btn-outline-warning w-100"><i class="fa-solid fa-wand-magic-sparkles me-1"></i> Clean Data</a>
+        </div>
+    </form>
+</div>
+
+<!-- Section 1: Correlation Matrix Heatmap & AI Insights -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-7">
+        <div class="glass-card p-4 h-100">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-fire text-danger me-2"></i> Correlation Heatmap (Seaborn / Plotly)</h5>
+            <div id="heatmapPlot" style="height: 480px;"></div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="glass-card p-4 h-100">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-brain text-info me-2"></i> AI Automated Correlation Explanations</h5>
+            <div class="overflow-y-auto pe-2" style="max-height: 420px;">
+                {% for corr_item in strong_correlations %}
+                <div class="p-3 mb-3 rounded-3 bg-dark border border-info border-opacity-50">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="fw-bold text-light">{{ corr_item.col1 }} ↔ {{ corr_item.col2 }}</span>
+                        <span class="badge bg-primary">r = {{ corr_item.value }}</span>
+                    </div>
+                    <p class="text-light opacity-90 small mb-0"><i class="fa-solid fa-circle-info text-info me-1"></i> {{ corr_item.explanation }}</p>
+                </div>
+                {% empty %}
+                <div class="text-light opacity-75 text-center py-5">
+                    <i class="fa-solid fa-chart-line fs-2 mb-2 opacity-50"></i>
+                    <p>No high correlations (|r| >= 0.4) detected in numerical columns.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section 2: NetworkX Graph Visualization & Degree Centrality (Unit 2.4 Syllabus) -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-8">
+        <div class="glass-card p-4">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-diagram-project text-info me-2"></i> NetworkX Feature Relationship Graph (Unit 2.4 Syllabus)</h5>
+            <div id="networkxPlot" style="height: 480px;"></div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="glass-card p-4 h-100">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-circle-nodes text-success me-2"></i> Node Degree Calculation</h5>
+            <p class="text-muted small">Degrees measure the number of strong relationship connections for each node/feature.</p>
+            <div class="table-responsive" style="max-height: 320px;">
+                <table class="table table-dark table-striped table-sm text-center">
+                    <thead>
+                        <tr>
+                            <th>Node / Feature</th>
+                            <th>Calculated Degree</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for node, degree in node_degrees.items %}
+                        <tr>
+                            <td class="fw-bold text-light">{{ node }}</td>
+                            <td><span class="badge bg-success fs-6">{{ degree }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section 3: Interactive Two-Way Cross Tabulation Builder (Unit 1.5 Syllabus) -->
+<div class="glass-card p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0"><i class="fa-solid fa-table-cells text-warning me-2"></i> Two-Way Cross Tabulation (Unit 1.5 Syllabus)</h5>
+        <span class="badge bg-secondary font-monospace">pd.crosstab()</span>
+    </div>
+    <form method="GET" class="row g-3 mb-3">
+        <input type="hidden" name="dataset_id" value="{{ selected_dataset.id }}">
+        <div class="col-md-5">
+            <label class="form-label text-light fw-bold small">Row Variable (Categorical / Quantitative):</label>
+            <select name="ct_col1" class="form-select bg-dark text-light border-secondary">
+                {% for col in all_columns %}
+                <option value="{{ col }}" {% if col == crosstab_col1 %}selected{% endif %}>{{ col }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-5">
+            <label class="form-label text-light fw-bold small">Column Variable:</label>
+            <select name="ct_col2" class="form-select bg-dark text-light border-secondary">
+                {% for col in all_columns %}
+                <option value="{{ col }}" {% if col == crosstab_col2 %}selected{% endif %}>{{ col }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-outline-warning w-100"><i class="fa-solid fa-calculator me-1"></i> Compute</button>
+        </div>
+    </form>
+    
+    <div class="table-responsive">
+        {{ crosstab_html|safe }}
+    </div>
+</div>
+
+<!-- Section 4: Interactive Chart Generator (15+ Plotly Charts) -->
+<div class="glass-card p-4 mb-4">
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-pie text-info me-2"></i> Interactive Custom Chart Builder</h5>
+    
+    <form method="GET" class="row g-3 mb-4">
+        <input type="hidden" name="dataset_id" value="{{ selected_dataset.id }}">
+        <div class="col-md-3">
+            <label class="form-label text-light small">Chart Type:</label>
+            <select name="chart_type" class="form-select bg-dark text-light border-secondary">
+                <option value="histogram" {% if chart_type == 'histogram' %}selected{% endif %}>Histogram</option>
+                <option value="scatter" {% if chart_type == 'scatter' %}selected{% endif %}>Scatter Plot</option>
+                <option value="boxplot" {% if chart_type == 'boxplot' %}selected{% endif %}>Box Plot</option>
+                <option value="violin" {% if chart_type == 'violin' %}selected{% endif %}>Violin Plot</option>
+                <option value="bar" {% if chart_type == 'bar' %}selected{% endif %}>Bar Chart</option>
+                <option value="line" {% if chart_type == 'line' %}selected{% endif %}>Line Chart</option>
+                <option value="pie" {% if chart_type == 'pie' %}selected{% endif %}>Pie Chart</option>
+                <option value="bubble" {% if chart_type == 'bubble' %}selected{% endif %}>Bubble Chart</option>
+                <option value="treemap" {% if chart_type == 'treemap' %}selected{% endif %}>Treemap</option>
+                <option value="sunburst" {% if chart_type == 'sunburst' %}selected{% endif %}>Sunburst</option>
+                <option value="parallel" {% if chart_type == 'parallel' %}selected{% endif %}>Parallel Coordinates</option>
+                <option value="scatter_matrix" {% if chart_type == 'scatter_matrix' %}selected{% endif %}>Scatter Matrix</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label text-light small">X-Axis Column:</label>
+            <select name="x_col" class="form-select bg-dark text-light border-secondary">
+                {% for col in all_columns %}
+                <option value="{{ col }}" {% if col == x_col %}selected{% endif %}>{{ col }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label text-light small">Y-Axis Column:</label>
+            <select name="y_col" class="form-select bg-dark text-light border-secondary">
+                {% for col in all_columns %}
+                <option value="{{ col }}" {% if col == y_col %}selected{% endif %}>{{ col }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-gradient-primary w-100"><i class="fa-solid fa-rotate me-1"></i> Render Chart</button>
+        </div>
+    </form>
+    
+    <div id="customChartPlot" style="height: 500px;"></div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Render Heatmap
+        var heatmapData = {{ heatmap_json|safe }};
+        Plotly.newPlot('heatmapPlot', heatmapData.data, heatmapData.layout, {responsive: true});
+
+        // Render NetworkX Graph
+        var networkxData = {{ networkx_json|safe }};
+        Plotly.newPlot('networkxPlot', networkxData.data, networkxData.layout, {responsive: true});
+
+        // Render Custom Chart
+        var customData = {{ custom_chart_json|safe }};
+        Plotly.newPlot('customChartPlot', customData.data, customData.layout, {responsive: true});
+    });
+</script>
+{% endblock %}

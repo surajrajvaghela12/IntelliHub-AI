@@ -1,0 +1,13 @@
+Invoice_ID,Branch,City,Customer_type,Gender,Product_line,Unit_price,Quantity,Tax_5pct,Total,Payment,Rating
+INV-1001,A,Yangon,Member,Female,Health and beauty,74.69,7,26.14,548.97,Ewallet,9.1
+INV-1002,C,Naypyitaw,Normal,Male,Electronic accessories,15.28,5,3.82,80.22,Cash,8.9
+INV-1003,A,Yangon,Normal,Male,Home and lifestyle,46.33,7,16.21,340.52,Credit card,7.2
+INV-1004,A,Yangon,Member,Male,Health and beauty,58.22,8,23.28,489.04,Ewallet,8.4
+INV-1005,A,Yangon,Normal,Male,Sports and travel,86.31,7,30.20,634.37,Ewallet,5.3
+INV-1006,C,Naypyitaw,Normal,Male,Electronic accessories,85.39,7,29.88,627.61,Ewallet,4.1
+INV-1007,A,Yangon,Member,Female,Fashion accessories,68.84,6,20.65,433.69,Credit card,5.8
+INV-1008,C,Naypyitaw,Normal,Female,Food and beverages,73.52,10,36.76,771.96,Ewallet,8.0
+INV-1009,A,Yangon,Member,Female,Sports and travel,89.42,2,8.94,187.78,Cash,6.6
+INV-1010,B,Mandalay,Member,Female,Health and beauty,54.89,3,8.23,172.90,Credit card,5.9
+INV-1011,B,Mandalay,Normal,Male,Sports and travel,45.12,6,13.53,284.25,Cash,7.8
+INV-1012,C,Naypyitaw,Member,Female,Food and beverages,92.50,8,37.00,777.00,Credit card,9.5

@@ -1,0 +1,16 @@
+Student_ID,Name,Gender,Age,Study_Hours,Attendance_Pct,Prev_Score,Result
+S01,Aarav,Male,20,7.5,92,85,Pass
+S02,Ananya,Female,21,8.0,95,88,Pass
+S03,Rohan,Male,20,4.0,70,55,Fail
+S04,Priya,Female,22,6.5,85,78,Pass
+S05,Karan,Male,21,3.5,65,48,Fail
+S06,Sneha,Female,20,9.0,98,92,Pass
+S07,Rahul,Male,22,5.0,75,62,Pass
+S08,Neha,Female,21,2.5,55,40,Fail
+S09,Vikram,Male,20,8.5,94,89,Pass
+S10,Pooja,Female,22,7.0,88,81,Pass
+S11,Amit,Male,21,4.5,72,58,Fail
+S12,Divya,Female,20,8.0,91,86,Pass
+S13,Siddharth,Male,22,3.0,60,45,Fail
+S14,Riya,Female,21,6.0,82,74,Pass
+S15,Aditya,Male,20,9.5,99,96,Pass

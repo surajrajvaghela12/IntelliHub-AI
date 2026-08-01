@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile - IntelliHub AI{% endblock %}
+{% block page_title %}User Profile & Quota Settings{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="glass-card p-4 text-center">
+            <div class="position-relative d-inline-block mb-3">
+                <i class="fa-solid fa-circle-user fs-1 text-info" style="font-size: 5rem !important;"></i>
+            </div>
+            <h4 class="fw-bold mb-1">{{ user.username }}</h4>
+            <span class="badge badge-role badge-student mb-3">{{ user.get_role_display }}</span>
+            <p class="text-muted small">{{ user.profile.bio }}</p>
+            <hr class="border-secondary">
+            
+            <div class="text-start">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted"><i class="fa-solid fa-graduation-cap me-2"></i>Education:</span>
+                    <span class="fw-semibold">{{ user.profile.education }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted"><i class="fa-solid fa-building me-2"></i>Company:</span>
+                    <span class="fw-semibold">{{ user.profile.company }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted"><i class="fa-solid fa-database me-2"></i>Uploaded Datasets:</span>
+                    <span class="badge bg-primary fs-6">{{ dataset_count }} / {% if user.role == 'STUDENT' %}5{% else %}∞{% endif %}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted"><i class="fa-solid fa-robot me-2"></i>Trained Models:</span>
+                    <span class="badge bg-success fs-6">{{ model_count }}</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-muted"><i class="fa-solid fa-clock me-2"></i>Last Login:</span>
+                    <span class="small">{{ user.last_login|date:"M d, H:i" }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="glass-card p-4">
+            <h5 class="fw-bold mb-4"><i class="fa-solid fa-sliders text-info me-2"></i> Edit Account Profile</h5>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label text-light">Education / Degree</label>
+                        {{ p_form.education }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-light">Company / Organization</label>
+                        {{ p_form.company }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-light">GitHub Profile URL</label>
+                        {{ p_form.github }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-light">LinkedIn Profile URL</label>
+                        {{ p_form.linkedin }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label text-light">Bio / Description</label>
+                        {{ p_form.bio }}
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check form-switch mt-2">
+                            {{ p_form.dark_mode }}
+                            <label class="form-check-label text-light ms-2">Enable Dark Mode Theme</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-gradient-primary">
+                        <i class="fa-solid fa-floppy-disk me-2"></i> Save Profile
+                    </button>
+                    <a href="{% url 'accounts:change_password' %}" class="btn btn-outline-light ms-2">
+                        <i class="fa-solid fa-key me-2"></i> Change Password
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
