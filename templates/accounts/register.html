@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %}Register - IntelliHub AI{% endblock %}
+{% block title %}Sign Up - IntelliHub AI{% endblock %}
 {% block page_title %}Create SaaS Account{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center mt-4">
-    <div class="col-md-6">
+<div class="row justify-content-center align-items-center mt-3 mt-md-4">
+    <div class="col-md-5 col-lg-4">
         <div class="glass-card p-4 p-md-5">
             <div class="text-center mb-4">
-                <i class="fa-solid fa-user-plus fs-1 text-info mb-2"></i>
-                <h3 class="fw-bold">Create Account</h3>
-                <p class="text-muted">Select your Role & start analyzing datasets</p>
+                <i class="fa-solid fa-brain fs-1 text-info mb-2"></i>
+                <h3 class="fw-bold text-light">Create Account</h3>
+                <p class="text-muted small">Sign up to get instant access to AI workspace</p>
             </div>
             
             {% if form.non_field_errors %}
-            <div class="alert alert-danger py-2 mb-3">
+            <div class="alert alert-danger py-2 mb-3 small">
                 {% for err in form.non_field_errors %}
                     <div><i class="fa-solid fa-circle-exclamation me-1"></i> {{ err }}</div>
                 {% endfor %}
@@ -23,66 +23,45 @@
 
             <form method="POST">
                 {% csrf_token %}
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label text-light">Username</label>
-                        {{ form.username }}
-                        {% if form.username.errors %}
-                        <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.username.errors.0 }}</small>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label text-light">Email Address</label>
-                        {{ form.email }}
-                        {% if form.email.errors %}
-                        <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.email.errors.0 }}</small>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label text-light">First Name</label>
-                        {{ form.first_name }}
-                        {% if form.first_name.errors %}
-                        <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.first_name.errors.0 }}</small>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label text-light">Last Name</label>
-                        {{ form.last_name }}
-                        {% if form.last_name.errors %}
-                        <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.last_name.errors.0 }}</small>
-                        {% endif %}
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label text-light">Account Role</label>
-                        {{ form.role }}
-                        <small class="text-muted d-block mt-1">Student = 5 Datasets upload limit | Researcher/Admin = Unlimited</small>
-                        {% if form.role.errors %}
-                        <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.role.errors.0 }}</small>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label text-light">Password</label>
-                        {{ form.password1 }}
-                        {% if form.password1.errors %}
-                        <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.password1.errors.0 }}</small>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label text-light">Confirm Password</label>
-                        {{ form.password2 }}
-                        {% if form.password2.errors %}
-                        <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.password2.errors.0 }}</small>
-                        {% endif %}
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label text-light small fw-semibold">Username</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                    <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.username.errors.0 }}</small>
+                    {% endif %}
                 </div>
 
-                <button type="submit" class="btn btn-gradient-primary w-100 py-2 fs-5 mt-4">
-                    <i class="fa-solid fa-user-check me-2"></i> Register Account
+                <div class="mb-3">
+                    <label class="form-label text-light small fw-semibold">Email Address</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.email.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-light small fw-semibold">Password</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                    <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.password1.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-light small fw-semibold">Confirm Password</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                    <small class="text-danger d-block mt-1"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ form.password2.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-gradient-primary w-100 py-2 fs-6 fw-semibold">
+                    <i class="fa-solid fa-user-plus me-2"></i> Create Free Account
                 </button>
             </form>
             
-            <div class="text-center mt-4 text-muted">
-                Already registered? <a href="{% url 'accounts:login' %}" class="text-info fw-bold text-decoration-none">Sign In</a>
+            <div class="text-center mt-4 text-muted small">
+                Already have an account? <a href="{% url 'accounts:login' %}" class="text-info fw-bold text-decoration-none ms-1">Sign In</a>
             </div>
         </div>
     </div>

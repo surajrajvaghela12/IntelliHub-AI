@@ -17,32 +17,25 @@ class AccountsAuthTestCase(TestCase):
             username='existinguser',
             email='existing@example.com',
             password='Password123!',
-            role='STUDENT'
+            role='DATA_SCIENTIST'
         )
 
     def test_user_registration_success(self):
         payload = {
             'username': 'newuser123',
             'email': 'newuser@example.com',
-            'first_name': 'John',
-            'last_name': 'Doe',
-            'role': 'DATA_SCIENTIST',
             'password1': 'StrongPassword123!',
             'password2': 'StrongPassword123!',
         }
         response = self.client.post(self.register_url, payload)
-        # Should redirect to dashboard upon successful registration
         self.assertRedirects(response, self.dashboard_url)
         
-        # Check user created in database
         user_exists = User.objects.filter(username='newuser123').exists()
         self.assertTrue(user_exists)
         
         user = User.objects.get(username='newuser123')
         self.assertEqual(user.email, 'newuser@example.com')
         self.assertEqual(user.role, 'DATA_SCIENTIST')
-        
-        # Check profile was automatically created via signal
         self.assertTrue(hasattr(user, 'profile'))
 
     def test_user_login_success(self):
