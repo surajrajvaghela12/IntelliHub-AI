@@ -11,7 +11,7 @@
     <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/static/css/custom.css?v=4.0">
+    <link rel="stylesheet" href="/static/css/custom.css?v=5.0">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -69,14 +69,14 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <!-- Top Bar -->
-        <div class="top-header d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                <button id="sidebarToggle" class="btn btn-outline-info me-3 d-lg-none py-1 px-2" type="button" aria-label="Toggle navigation">
+        <div class="top-header d-flex justify-content-between align-items-center flex-nowrap">
+            <div class="d-flex align-items-center text-truncate me-2">
+                <button id="sidebarToggle" class="btn btn-outline-info me-2 me-sm-3 d-lg-none py-1 px-2 flex-shrink-0" type="button" aria-label="Toggle navigation">
                     <i class="fa-solid fa-bars fs-5"></i>
                 </button>
-                <h4 class="mb-0 fw-bold text-light">{% block page_title %}Dashboard Overview{% endblock %}</h4>
+                <h4 class="mb-0 fw-bold text-light text-truncate top-header-title">{% block page_title %}Dashboard Overview{% endblock %}</h4>
             </div>
-            <div class="d-flex align-items-center gap-2 gap-md-3">
+            <div class="d-flex align-items-center gap-1 gap-sm-2 flex-shrink-0">
                 {% if user.is_authenticated %}
                 <div class="dropdown">
                     <button class="btn btn-outline-light dropdown-toggle border-0 py-1 px-2 px-md-3" type="button" data-bs-toggle="dropdown">

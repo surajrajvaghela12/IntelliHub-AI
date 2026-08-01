@@ -194,6 +194,29 @@ p, span, label, small, div, td, th {
     box-shadow: 0 0 0 0.25rem rgba(56, 189, 248, 0.25) !important;
 }
 
+/* High-Contrast Bold Error & Warning Alert Styling */
+.alert-danger, .alert-warning {
+    background-color: rgba(185, 28, 28, 0.95) !important;
+    border: 1px solid #ef4444 !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4) !important;
+    border-radius: 12px !important;
+}
+
+.alert-danger div, .alert-warning div, .alert-danger p, .alert-warning p, .alert-danger span, .alert-warning span {
+    color: #ffffff !important;
+}
+
+.alert-danger i, .alert-warning i {
+    color: #fca5a5 !important;
+}
+
+.text-danger, small.text-danger {
+    color: #f87171 !important;
+    font-weight: 600 !important;
+}
+
 /* Metric Stats Card */
 .stat-card {
     position: relative;
@@ -297,12 +320,20 @@ p, span, label, small, div, td, th {
         padding: 0.85rem 0.65rem !important;
     }
     .top-header {
-        padding: 0.75rem 0.85rem !important;
+        padding: 0.65rem 0.75rem !important;
         margin-bottom: 1rem !important;
         border-radius: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        flex-wrap: nowrap !important;
     }
-    .top-header h4 {
-        font-size: 1.05rem !important;
+    .top-header-title {
+        font-size: 1rem !important;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 
@@ -318,15 +349,14 @@ p, span, label, small, div, td, th {
         font-size: 1.6rem !important;
     }
     .btn-gradient-primary {
-        padding: 0.45rem 0.85rem !important;
-        font-size: 0.85rem !important;
+        padding: 0.4rem 0.75rem !important;
+        font-size: 0.825rem !important;
     }
     .table th, .table td {
         font-size: 0.8rem !important;
         padding: 0.35rem 0.45rem !important;
     }
-    .top-header {
-        flex-wrap: wrap;
-        gap: 0.5rem;
+    .top-header-title {
+        max-width: 110px;
     }
 }

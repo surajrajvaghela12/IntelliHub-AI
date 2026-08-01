@@ -31,8 +31,20 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'}))
+    username = forms.CharField(label="Username or Email", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username or email address'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter your password'}))
+
+    def clean(self):
+        username = self.cleaned_data.get('username', '').strip()
+        password = self.cleaned_data.get('password', '')
+
+        if username and password:
+            # Allow login via username OR email address (case-insensitive)
+            user_obj = User.objects.filter(email__iexact=username).first() or User.objects.filter(username__iexact=username).first()
+            if user_obj:
+                self.cleaned_data['username'] = user_obj.username
+
+        return super().clean()
 
 
 class ProfileUpdateForm(forms.ModelForm):
