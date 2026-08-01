@@ -11,8 +11,7 @@
                 <i class="fa-solid fa-circle-user fs-1 text-info" style="font-size: 5rem !important;"></i>
             </div>
             <h4 class="fw-bold mb-1">{{ user.username }}</h4>
-            <span class="badge badge-role badge-student mb-3">{{ user.get_role_display }}</span>
-            <p class="text-muted small">{{ user.profile.bio }}</p>
+            <p class="text-muted small mb-3">{{ user.profile.bio }}</p>
             <hr class="border-secondary">
             
             <div class="text-start">
@@ -26,7 +25,7 @@
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <span class="text-muted"><i class="fa-solid fa-database me-2"></i>Uploaded Datasets:</span>
-                    <span class="badge bg-primary fs-6">{{ dataset_count }} / {% if user.role == 'STUDENT' %}5{% else %}∞{% endif %}</span>
+                    <span class="badge bg-primary fs-6">{{ dataset_count }}</span>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <span class="text-muted"><i class="fa-solid fa-robot me-2"></i>Trained Models:</span>
