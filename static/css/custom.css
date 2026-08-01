@@ -335,6 +335,15 @@ p, span, label, small, div, td, th {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    h3 {
+        font-size: 1.35rem !important;
+    }
+    h4 {
+        font-size: 1.2rem !important;
+    }
+    h5 {
+        font-size: 1.05rem !important;
+    }
 }
 
 @media screen and (max-width: 575.98px) {
@@ -342,11 +351,16 @@ p, span, label, small, div, td, th {
         padding: 1rem !important;
         border-radius: 12px !important;
     }
+    .stat-card {
+        padding: 1rem 0.85rem !important;
+    }
     .stat-card .stat-value {
-        font-size: 1.5rem !important;
+        font-size: 1.4rem !important;
     }
     .stat-card .stat-icon {
-        font-size: 1.6rem !important;
+        font-size: 1.5rem !important;
+        top: 0.85rem !important;
+        right: 0.85rem !important;
     }
     .btn-gradient-primary {
         padding: 0.4rem 0.75rem !important;
@@ -358,5 +372,14 @@ p, span, label, small, div, td, th {
     }
     .top-header-title {
         max-width: 110px;
+    }
+    h3 {
+        font-size: 1.2rem !important;
+    }
+    h4 {
+        font-size: 1.1rem !important;
+    }
+    h5 {
+        font-size: 0.95rem !important;
     }
 }

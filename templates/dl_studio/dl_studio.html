@@ -1,29 +1,29 @@
 {% extends 'base.html' %}
 
 {% block title %}Deep Learning Studio - IntelliHub AI{% endblock %}
-{% block page_title %}Deep Learning & Neural Network Studio (Unit 6 Syllabus){% endblock %}
+{% block page_title %}Deep Learning & Neural Network Studio{% endblock %}
 
 {% block content %}
 <!-- Header Hero -->
 <div class="glass-card p-4 mb-4 text-white" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(2, 132, 199, 0.25) 100%); border: 1px solid rgba(168, 85, 247, 0.3);">
     <div class="row align-items-center">
         <div class="col-md-9">
-            <h3 class="fw-bold mb-2"><i class="fa-solid fa-network-wired text-purple me-2" style="color:#a855f7"></i> Deep Learning Studio (TensorFlow / Keras)</h3>
+            <h3 class="fw-bold mb-2"><i class="fa-solid fa-network-wired text-purple me-2" style="color:#a855f7"></i> Deep Learning Studio (PyTorch / Keras Engine)</h3>
             <p class="text-light opacity-75 mb-0">
-                Covers Unit 6 Syllabus: Dense Neural Networks with <b>ReLU, Sigmoid, Softmax</b> activation functions, Convolutional Neural Networks (CNN) with Pooling & Dropout layers, and Transfer Learning using pre-trained models.
+                Dense Neural Networks with <b>ReLU, Sigmoid, Softmax</b> activation functions, Convolutional Neural Networks (CNN) with Pooling & Dropout layers, and Transfer Learning using pre-trained backbones.
             </p>
         </div>
         <div class="col-md-3 text-center mt-3 mt-md-0">
-            <span class="badge bg-purple px-3 py-2 fs-6" style="background:#a855f7">TensorFlow / Keras</span>
+            <span class="badge bg-purple px-3 py-2 fs-6" style="background:#a855f7">PyTorch / Keras</span>
         </div>
     </div>
 </div>
 
-<!-- Section 1: Neural Network Training Simulator & Epoch Loss/Accuracy Graph (Unit 6.1 Syllabus) -->
+<!-- Section 1: Neural Network Training Simulator & Epoch Loss/Accuracy Graph -->
 <div class="row g-4 mb-4">
     <div class="col-lg-4">
         <div class="glass-card p-4">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-sliders text-info me-2"></i> Keras Network Config (Unit 6.1)</h5>
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-sliders text-info me-2"></i> Network Config & Hyperparameters</h5>
             <form method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -31,14 +31,14 @@
                     <input type="number" name="epochs" value="{{ epochs }}" min="5" max="50" class="form-control bg-dark text-light border-secondary">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label text-light">Hidden Layer Activation (Unit 6.1):</label>
+                    <label class="form-label text-light">Hidden Layer Activation:</label>
                     <select name="activation" class="form-select bg-dark text-light border-secondary">
                         <option value="relu" {% if activation == 'relu' %}selected{% endif %}>ReLU (Rectified Linear Unit)</option>
                         <option value="sigmoid" {% if activation == 'sigmoid' %}selected{% endif %}>Sigmoid Activation</option>
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label class="form-label text-light">Output Activation (Unit 6.1):</label>
+                    <label class="form-label text-light">Output Activation:</label>
                     <select name="output_activation" class="form-select bg-dark text-light border-secondary">
                         <option value="softmax" {% if output_act == 'softmax' %}selected{% endif %}>Softmax (Multi-class Classification)</option>
                         <option value="sigmoid" {% if output_act == 'sigmoid' %}selected{% endif %}>Sigmoid (Binary Classification)</option>
@@ -59,9 +59,9 @@
     </div>
 </div>
 
-<!-- Section 2: CNN Layer Architecture Inspector (Unit 6.2 Syllabus) -->
+<!-- Section 2: CNN Layer Architecture Inspector -->
 <div class="glass-card p-4 mb-4">
-    <h5 class="fw-bold mb-3"><i class="fa-solid fa-layer-group text-warning me-2"></i> CNN Layer Architecture Visualizer (Unit 6.2 Syllabus)</h5>
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-layer-group text-warning me-2"></i> CNN Layer Architecture Visualizer</h5>
     <p class="text-muted small mb-4">Inspect Convolution, Pooling (MaxPooling2D), Dropout, and Dense Layers in the CNN Pipeline.</p>
     
     <div class="row g-3">
@@ -83,7 +83,7 @@
     </div>
 </div>
 
-<!-- Section 3: Transfer Learning & Image Classification (Unit 6.3 Syllabus) -->
+<!-- Section 3: Transfer Learning & Image Classification -->
 <div class="row g-4">
     <div class="col-lg-5">
         <div class="glass-card p-4">
@@ -95,7 +95,7 @@
                     <input type="file" name="image_file" class="form-control bg-dark text-light border-secondary" accept="image/*" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label text-light">Pre-trained Transfer Model (Unit 6.3):</label>
+                    <label class="form-label text-light">Pre-trained Transfer Model:</label>
                     <select name="transfer_model" class="form-select bg-dark text-light border-secondary">
                         {% for tm in transfer_models %}
                         <option value="{{ tm.name }}">{{ tm.name }} (Acc: {{ tm.accuracy }})</option>
@@ -119,7 +119,7 @@
 
     <div class="col-lg-7">
         <div class="glass-card p-4 h-100">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-cubes text-purple me-2" style="color:#a855f7"></i> Transfer Learning Pre-Trained Backbones (Unit 6.3 Syllabus)</h5>
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-cubes text-purple me-2" style="color:#a855f7"></i> Transfer Learning Pre-Trained Backbones</h5>
             <div class="table-responsive">
                 <table class="table table-dark table-striped table-hover align-middle">
                     <thead>
@@ -128,17 +128,15 @@
                             <th>Parameters</th>
                             <th>Depth</th>
                             <th>Top-1 Accuracy</th>
-                            <th>Recommended Application</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for tm in transfer_models %}
                         <tr>
                             <td class="fw-bold text-light">{{ tm.name }}</td>
-                            <td>{{ tm.params }}</td>
+                            <td><code>{{ tm.params }}</code></td>
                             <td>{{ tm.depth }} layers</td>
-                            <td class="text-success fw-bold">{{ tm.accuracy }}</td>
-                            <td class="small text-muted">{{ tm.ideal_for }}</td>
+                            <td><span class="badge bg-success">{{ tm.accuracy }}</span></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -150,7 +148,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var dlGraphData = {{ graph_json|safe }};
+        var dlGraphData = {{ dl_graph_json|safe }};
         Plotly.newPlot('dlGraphPlot', dlGraphData.data, dlGraphData.layout, {responsive: true});
     });
 </script>

@@ -29,7 +29,7 @@
     <!-- Model Configuration Panel -->
     <div class="col-lg-5">
         <div class="glass-card p-4">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-sliders text-info me-2"></i> Model Configuration (Units 3, 4, 5 Syllabus)</h5>
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-sliders text-info me-2"></i> Model Configuration & Parameters</h5>
             
             <form method="POST">
                 {% csrf_token %}
@@ -65,11 +65,11 @@
                     <label class="form-label text-light">Algorithm:</label>
                     <select name="algorithm" class="form-select bg-dark text-light border-secondary">
                         <option value="random_forest">Random Forest Classifier (Ensemble)</option>
-                        <option value="decision_tree">Decision Tree Classifier (Entropy Criterion - Unit 5.1)</option>
-                        <option value="knn">k-Nearest Neighbors (kNN - Unit 5.1)</option>
-                        <option value="svm">Support Vector Machine (SVM - Unit 5.2)</option>
-                        <option value="multiple_linear">Multiple / Simple Linear Regression (Unit 4.1)</option>
-                        <option value="polynomial">Polynomial Regression (Unit 4.2)</option>
+                        <option value="decision_tree">Decision Tree Classifier (Entropy Criterion)</option>
+                        <option value="knn">k-Nearest Neighbors (kNN)</option>
+                        <option value="svm">Support Vector Machine (SVM)</option>
+                        <option value="multiple_linear">Multiple / Simple Linear Regression</option>
+                        <option value="polynomial">Polynomial Regression</option>
                         <option value="ridge">Ridge Regression</option>
                         <option value="lasso">Lasso Regression</option>
                     </select>
@@ -153,10 +153,10 @@
                 {% endif %}
             </div>
 
-            <!-- Confusion Matrix Display (Unit 5.3 Syllabus) -->
+            <!-- Confusion Matrix Display -->
             {% if metrics.confusion_matrix %}
             <div class="p-4 bg-dark bg-opacity-50 rounded-4 border border-secondary mb-4">
-                <h6 class="fw-bold mb-3"><i class="fa-solid fa-border-all text-info me-2"></i> Confusion Matrix (Unit 5.3 Syllabus)</h6>
+                <h6 class="fw-bold mb-3"><i class="fa-solid fa-border-all text-info me-2"></i> Confusion Matrix</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered table-dark text-center align-middle m-0" style="max-width: 300px; margin: 0 auto !important;">
                         <tbody>
