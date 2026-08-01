@@ -1,4 +1,4 @@
-/* 🚀 IntelliHub AI SaaS High-Contrast Design System */
+/* 🚀 IntelliHub AI SaaS High-Contrast Design System & Responsive Layout */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap');
 
 :root {
@@ -70,10 +70,10 @@ p, span, label, small, div, td, th {
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 1040;
     background: #0f172a;
     border-right: 1px solid var(--border-color);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
 }
 
@@ -120,11 +120,33 @@ p, span, label, small, div, td, th {
     color: #ffffff;
 }
 
+/* Sidebar Backdrop Overlay for Mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(11, 15, 25, 0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1030;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
 /* Main Content Area */
 #page-content-wrapper {
     margin-left: var(--sidebar-width);
     min-height: 100vh;
     padding: 1.5rem 2rem;
+    transition: margin-left 0.3s ease, padding 0.3s ease;
 }
 
 /* Top Header Bar */
@@ -183,20 +205,6 @@ p, span, label, small, div, td, th {
     color: #ffffff !important;
 }
 
-/* Custom Badges */
-.badge-role {
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
-
-.badge-student { background: rgba(56, 189, 248, 0.25); color: #38bdf8; border: 1px solid #38bdf8; }
-.badge-admin { background: rgba(244, 63, 94, 0.25); color: #f43f5e; border: 1px solid #f43f5e; }
-.badge-researcher { background: rgba(192, 132, 252, 0.25); color: #c084fc; border: 1px solid #c084fc; }
-
 /* Buttons */
 .btn-gradient-primary {
     background: var(--primary-gradient);
@@ -215,7 +223,12 @@ p, span, label, small, div, td, th {
     color: #ffffff !important;
 }
 
-/* Tables High Contrast */
+/* Tables High Contrast & Touch Scroll */
+.table-responsive {
+    border-radius: 10px;
+    -webkit-overflow-scrolling: touch;
+}
+
 .table-dark {
     --bs-table-bg: rgba(15, 23, 42, 0.6);
     --bs-table-striped-bg: rgba(30, 41, 59, 0.6);
@@ -253,4 +266,47 @@ code, pre {
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-cyan);
+}
+
+/* 📱 Responsive Media Queries for Mobile & Tablet */
+@media (max-width: 991.98px) {
+    #sidebar-wrapper {
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.7);
+    }
+    #sidebar-wrapper.show {
+        transform: translateX(0);
+    }
+    #page-content-wrapper {
+        margin-left: 0 !important;
+        padding: 1rem 0.75rem !important;
+    }
+    .top-header {
+        padding: 0.75rem 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+    .top-header h4 {
+        font-size: 1.15rem !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .glass-card {
+        padding: 1.15rem !important;
+        border-radius: 14px !important;
+    }
+    .stat-card .stat-value {
+        font-size: 1.6rem !important;
+    }
+    .stat-card .stat-icon {
+        font-size: 1.8rem !important;
+    }
+    .btn-gradient-primary {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.875rem !important;
+    }
+    .table th, .table td {
+        font-size: 0.85rem !important;
+        padding: 0.4rem 0.5rem !important;
+    }
 }
