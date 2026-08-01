@@ -53,7 +53,7 @@ class AccountsAuthTestCase(TestCase):
         }
         response = self.client.post(self.login_url, payload)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Invalid username or password")
+        self.assertContains(response, "Invalid username/email or password")
 
     def test_banned_user_login_denied(self):
         banned_user = User.objects.create_user(

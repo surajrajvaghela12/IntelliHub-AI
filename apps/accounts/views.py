@@ -38,7 +38,7 @@ def login_view(request):
         return redirect('dashboard:home')
         
     if request.method == 'POST':
-        form = UserLoginForm(request, data=request.POST)
+        form = UserLoginForm(request=request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             if user.is_banned:
@@ -48,10 +48,8 @@ def login_view(request):
             messages.success(request, f"Welcome back, {user.username}!")
             next_url = request.GET.get('next', 'dashboard:home')
             return redirect(next_url)
-        else:
-            messages.error(request, "Invalid username or password.")
     else:
-        form = UserLoginForm()
+        form = UserLoginForm(request=request)
     return render(request, 'accounts/login.html', {'form': form})
 
 @login_required

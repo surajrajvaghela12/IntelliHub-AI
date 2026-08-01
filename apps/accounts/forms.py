@@ -30,21 +30,37 @@ class UserRegistrationForm(UserCreationForm):
         return user
 
 
-class UserLoginForm(AuthenticationForm):
+from django.contrib.auth import authenticate
+
+class UserLoginForm(forms.Form):
     username = forms.CharField(label="Username or Email", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username or email address'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter your password'}))
 
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        self.user_cache = None
+        super().__init__(*args, **kwargs)
+
     def clean(self):
-        username = self.cleaned_data.get('username', '').strip()
+        username_or_email = self.cleaned_data.get('username', '').strip()
         password = self.cleaned_data.get('password', '')
 
-        if username and password:
-            # Allow login via username OR email address (case-insensitive)
-            user_obj = User.objects.filter(email__iexact=username).first() or User.objects.filter(username__iexact=username).first()
-            if user_obj:
-                self.cleaned_data['username'] = user_obj.username
+        if username_or_email and password:
+            # Look up registered user by username OR email (case-insensitive)
+            user_obj = User.objects.filter(email__iexact=username_or_email).first() or User.objects.filter(username__iexact=username_or_email).first()
+            actual_username = user_obj.username if user_obj else username_or_email
 
-        return super().clean()
+            self.user_cache = authenticate(self.request, username=actual_username, password=password)
+
+            if self.user_cache is None:
+                raise forms.ValidationError("Invalid username/email or password. Please check your credentials.")
+            elif not self.user_cache.is_active:
+                raise forms.ValidationError("This account has been deactivated.")
+
+        return self.cleaned_data
+
+    def get_user(self):
+        return self.user_cache
 
 
 class ProfileUpdateForm(forms.ModelForm):
