@@ -229,11 +229,23 @@ p, span, label, small, div, td, th {
     font-weight: 600 !important;
 }
 
+/* Global Ultra-Vibrant High-Contrast Utilities for Stat Cards & Pages */
+.text-info, .stat-value.text-info { color: #38bdf8 !important; text-shadow: 0 0 12px rgba(56, 189, 248, 0.6); }
+.text-success, .stat-value.text-success { color: #4ade80 !important; text-shadow: 0 0 12px rgba(74, 222, 128, 0.6); }
+.text-warning, .stat-value.text-warning, .text-amber, .stat-value.text-amber { color: #fbbf24 !important; text-shadow: 0 0 12px rgba(251, 191, 36, 0.6); }
+.text-danger, .stat-value.text-danger, .text-rose, .stat-value.text-rose { color: #f43f5e !important; text-shadow: 0 0 12px rgba(244, 63, 94, 0.6); }
+.text-purple, .stat-value.text-purple { color: #c084fc !important; text-shadow: 0 0 12px rgba(192, 132, 252, 0.6); }
+.text-primary, .stat-value.text-primary { color: #60a5fa !important; text-shadow: 0 0 12px rgba(96, 165, 250, 0.6); }
+.text-cyan, .stat-value.text-cyan { color: #38bdf8 !important; text-shadow: 0 0 12px rgba(56, 189, 248, 0.6); }
+
 /* Metric Stats Card */
 .stat-card {
     position: relative;
     overflow: hidden;
     padding: 1.5rem;
+    background: rgba(15, 23, 42, 0.95) !important;
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    border-radius: 16px !important;
 }
 
 .stat-card .stat-icon {
@@ -245,10 +257,10 @@ p, span, label, small, div, td, th {
 }
 
 .stat-value {
-    font-size: 2.4rem;
-    font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -0.5px;
+    font-size: 2.4rem !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.5px !important;
 }
 
 /* Buttons */
