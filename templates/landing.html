@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IntelliHub AI - All-in-One AI & Data Analytics SaaS Platform</title>
+    <meta name="description" content="IntelliHub AI is a next-generation AI and data analytics platform for automated data cleaning, exploratory EDA, AutoML model training, deep learning, web scraping, and executive PDF reporting.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/custom.css?v=7.0">
+</head>
+<body class="landing-body">
+
+    <!-- Glowing Background Canvas Gradients -->
+    <div class="landing-bg-glow glow-1"></div>
+    <div class="landing-bg-glow glow-2"></div>
+    <div class="landing-bg-glow glow-3"></div>
+
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg sticky-top landing-navbar">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <div class="brand-icon-box">
+                    <i class="fa-solid fa-brain text-info"></i>
+                </div>
+                <span class="fw-extrabold brand-font text-gradient fs-4">IntelliHub AI</span>
+            </a>
+            
+            <button class="navbar-toggler border-0 text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#landingNav">
+                <i class="fa-solid fa-bars fs-3"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="landingNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3 text-center">
+                    <li class="nav-item"><a class="nav-link text-light" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#modules">AI Modules</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#demo">Interactive Demo</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#workflow">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#faq">FAQ</a></li>
+                </ul>
+                <div class="d-flex align-items-center justify-content-center gap-2 mt-3 mt-lg-0">
+                    {% if user.is_authenticated %}
+                    <span class="text-muted small me-2 d-none d-xl-inline"><i class="fa-solid fa-user me-1 text-info"></i> {{ user.username }}</span>
+                    <a href="{% url 'dashboard:home' %}" class="btn btn-gradient-primary">
+                        <i class="fa-solid fa-gauge-high me-2"></i> Go to Dashboard
+                    </a>
+                    {% else %}
+                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-light px-4 border-cyan">Log In</a>
+                    <a href="{% url 'accounts:register' %}" class="btn btn-gradient-primary">
+                        <i class="fa-solid fa-rocket me-2"></i> Get Started Free
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section text-center py-5 position-relative">
+        <div class="container py-4 py-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-9">
+                    <!-- Animated Badge -->
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 mb-4 rounded-pill glass-pill border-cyan">
+                        <span class="badge bg-info text-dark rounded-pill">NEW</span>
+                        <span class="small fw-semibold text-cyan">Next-Gen AutoML & Deep Learning Engine v2.0</span>
+                        <i class="fa-solid fa-chevron-right fs-7 text-info ms-1"></i>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1 class="display-3 fw-black text-white brand-font mb-3 hero-title">
+                        Transform Raw Data into <span class="text-gradient">Actionable Intelligence</span> with AI
+                    </h1>
+                    
+                    <!-- Sub-Headline -->
+                    <p class="lead text-muted mb-4 fs-5 hero-subtitle">
+                        An all-in-one data science platform. Clean messy datasets, explore automated EDA visualizers, build AutoML & deep learning models, scrape web data, and synthesize executive reports in seconds.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-5">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard:home' %}" class="btn btn-gradient-primary btn-lg px-4 py-3 fw-bold fs-6">
+                            <i class="fa-solid fa-chart-pie me-2"></i> Launch Dashboard Workspace
+                        </a>
+                        {% else %}
+                        <a href="{% url 'accounts:register' %}" class="btn btn-gradient-primary btn-lg px-4 py-3 fw-bold fs-6">
+                            <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Start Free Trial
+                        </a>
+                        {% endif %}
+                        <a href="#demo" class="btn btn-glass-secondary btn-lg px-4 py-3 fw-bold fs-6">
+                            <i class="fa-solid fa-circle-play me-2 text-cyan"></i> Explore Live Showcase
+                        </a>
+                    </div>
+
+                    <!-- Social Proof Micro-Bar -->
+                    <div class="d-flex align-items-center justify-content-center gap-3 text-muted small mb-5">
+                        <span><i class="fa-solid fa-check-circle text-success me-1"></i> No Credit Card Required</span>
+                        <span><i class="fa-solid fa-check-circle text-success me-1"></i> Instant Setup</span>
+                        <span><i class="fa-solid fa-check-circle text-success me-1"></i> Enterprise Grade Security</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Interactive Glass Mockup Card -->
+            <div class="hero-preview-container mt-2">
+                <div class="hero-glass-card shadow-lg p-3 p-md-4 position-relative">
+                    <div class="hero-top-bar d-flex align-items-center justify-content-between mb-3 border-bottom border-dark pb-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="dot bg-danger"></span>
+                            <span class="dot bg-warning"></span>
+                            <span class="dot bg-success"></span>
+                            <span class="ms-2 small text-muted font-monospace"><i class="fa-solid fa-shield-halved text-info me-1"></i> intellihub-ai://workspace/dashboard</span>
+                        </div>
+                        <div class="badge bg-success-subtle text-success border border-success border-opacity-25 px-2 py-1 small">
+                            <i class="fa-solid fa-bolt me-1"></i> AutoML Active: 99.4% Accuracy
+                        </div>
+                    </div>
+
+                    <!-- Mockup Grid Content -->
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="glass-stat-box p-3 text-start">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-muted small">AutoML Best Model</span>
+                                    <i class="fa-solid fa-trophy text-amber"></i>
+                                </div>
+                                <div class="fw-bold text-white fs-5">Random Forest Classifier</div>
+                                <div class="progress mt-2" style="height: 6px;">
+                                    <div class="progress-bar bg-gradient-cyan" style="width: 96.5%;"></div>
+                                </div>
+                                <div class="d-flex justify-content-between small mt-1">
+                                    <span class="text-muted">Accuracy</span>
+                                    <span class="text-cyan fw-bold">96.5%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="glass-stat-box p-3 text-start">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-muted small">AI Data Cleaner</span>
+                                    <i class="fa-solid fa-sparkles text-cyan"></i>
+                                </div>
+                                <div class="fw-bold text-white fs-5">12,450 Rows Processed</div>
+                                <div class="progress mt-2" style="height: 6px;">
+                                    <div class="progress-bar bg-success" style="width: 100%;"></div>
+                                </div>
+                                <div class="d-flex justify-content-between small mt-1">
+                                    <span class="text-muted">Nulls Imputed</span>
+                                    <span class="text-success fw-bold">0 Missing Values</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="glass-stat-box p-3 text-start">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-muted small">AI Analyst Assistant</span>
+                                    <i class="fa-solid fa-robot text-purple"></i>
+                                </div>
+                                <div class="fw-bold text-white fs-5">Feature Correlation</div>
+                                <div class="progress mt-2" style="height: 6px;">
+                                    <div class="progress-bar bg-purple" style="width: 88%;"></div>
+                                </div>
+                                <div class="d-flex justify-content-between small mt-1">
+                                    <span class="text-muted">Key Insight</span>
+                                    <span class="text-purple fw-bold">High Positive Skew</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mockup Code / Visual Preview -->
+                    <div class="mockup-chart-box mt-3 p-3 text-start">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="small font-monospace text-info"><i class="fa-solid fa-code me-1"></i> AutoML Model Leaderboard Evaluation</span>
+                            <span class="badge bg-secondary font-monospace">Dataset: Customer_Churn.csv</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-sm mb-0 align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Algorithm</th>
+                                        <th>Accuracy</th>
+                                        <th>Precision</th>
+                                        <th>Recall</th>
+                                        <th>F1-Score</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><i class="fa-solid fa-tree text-success me-1"></i> Random Forest</td>
+                                        <td class="text-cyan fw-bold">96.5%</td>
+                                        <td>95.2%</td>
+                                        <td>97.1%</td>
+                                        <td>0.961</td>
+                                        <td><span class="badge bg-success">Optimal</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fa-solid fa-diagram-project text-info me-1"></i> XGBoost Classifier</td>
+                                        <td class="text-cyan fw-bold">95.8%</td>
+                                        <td>94.6%</td>
+                                        <td>96.2%</td>
+                                        <td>0.954</td>
+                                        <td><span class="badge bg-info">Trained</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fa-solid fa-bolt text-warning me-1"></i> SVM Classifier</td>
+                                        <td class="text-cyan fw-bold">92.4%</td>
+                                        <td>91.0%</td>
+                                        <td>93.5%</td>
+                                        <td>0.922</td>
+                                        <td><span class="badge bg-secondary">Trained</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Key Metrics Counter Bar -->
+    <section class="py-4 border-y-glass">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-6 col-md-3">
+                    <div class="metric-item">
+                        <div class="metric-num text-gradient">{{ avg_accuracy }}%</div>
+                        <div class="metric-label text-muted">Average Model Accuracy</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="metric-item">
+                        <div class="metric-num text-gradient">{{ total_datasets }}+</div>
+                        <div class="metric-label text-muted">Datasets Processed</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="metric-item">
+                        <div class="metric-num text-gradient">{{ total_models }}+</div>
+                        <div class="metric-label text-muted">Trained ML & DL Models</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="metric-item">
+                        <div class="metric-num text-gradient">{{ total_predictions }}+</div>
+                        <div class="metric-label text-muted">Real-Time Inferences</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All-in-One Modules Grid Section -->
+    <section id="modules" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-info text-dark px-3 py-2 rounded-pill fw-bold text-uppercase tracking-wider">Complete Ecosystem</span>
+                <h2 class="display-5 fw-extrabold text-white brand-font mt-2">9 Powerful AI & Analytics Modules</h2>
+                <p class="text-muted fs-5 max-w-700 mx-auto">Everything you need to turn raw data into deployed machine learning models and executive reports.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Module 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card glass-card p-4 h-100">
+                        <div class="module-icon-box bg-gradient-blue">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mt-3 mb-2">Interactive Dashboard</h4>
+                        <p class="text-muted small">Real-time KPI metrics, model performance analytics, prediction logs, and interactive Plotly visualization charts.</p>
+                        <div class="mt-auto pt-3 border-top border-dark d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary font-monospace">Visualization</span>
+                            <a href="{% url 'dashboard:home' %}" class="text-cyan small fw-semibold text-decoration-none">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card glass-card p-4 h-100">
+                        <div class="module-icon-box bg-gradient-cyan">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mt-3 mb-2">Dataset Manager</h4>
+                        <p class="text-muted small">Multi-format parser for CSV, Excel & JSON files with automatic schema validation, datatype detection, and data profiling.</p>
+                        <div class="mt-auto pt-3 border-top border-dark d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary font-monospace">Data Pipeline</span>
+                            <a href="{% url 'datasets:list' %}" class="text-cyan small fw-semibold text-decoration-none">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card glass-card p-4 h-100">
+                        <div class="module-icon-box bg-gradient-purple">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mt-3 mb-2">AI Data Cleaner</h4>
+                        <p class="text-muted small">Automated missing value imputation, outlier detection & removal, feature encoding, scaling, and 1-click dataset export.</p>
+                        <div class="mt-auto pt-3 border-top border-dark d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary font-monospace">Preprocessing</span>
+                            <a href="{% url 'cleaner:home' %}" class="text-cyan small fw-semibold text-decoration-none">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card glass-card p-4 h-100">
+                        <div class="module-icon-box bg-gradient-green">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mt-3 mb-2">Exploratory EDA</h4>
+                        <p class="text-muted small">Automated correlation heatmaps, distribution plots, feature relationships, skewness metrics, and statistical summaries.</p>
+                        <div class="mt-auto pt-3 border-top border-dark d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary font-monospace">Statistics</span>
+                            <a href="{% url 'eda:home' %}" class="text-cyan small fw-semibold text-decoration-none">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card glass-card p-4 h-100">
+                        <div class="module-icon-box bg-gradient-amber">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mt-3 mb-2">ML Studio & AutoML</h4>
+                        <p class="text-muted small">Train Random Forest, SVM, XGBoost, Decision Trees & KNN with automatic hyperparameter tuning and model benchmarks.</p>
+                        <div class="mt-auto pt-3 border-top border-dark d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary font-monospace">Machine Learning</span>
+                            <a href="{% url 'ml_studio:home' %}" class="text-cyan small fw-semibold text-decoration-none">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 6 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card glass-card p-4 h-100">
+                        <div class="module-icon-box bg-gradient-rose">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mt-3 mb-2">Deep Learning Studio</h4>
+                        <p class="text-muted small">Custom multi-layer neural network builder, epoch progression tracker, activation tuning, and loss curve visualizer.</p>
+                        <div class="mt-auto pt-3 border-top border-dark d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary font-monospace">Neural Networks</span>
+                            <a href="{% url 'dl_studio:home' %}" class="text-cyan small fw-semibold text-decoration-none">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 7 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card glass-card p-4 h-100">
+                        <div class="module-icon-box bg-gradient-indigo">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mt-3 mb-2">AI Analyst Assistant</h4>
+                        <p class="text-muted small">Conversational AI context engine to chat with your datasets in natural language and generate instant analytical answers.</p>
+                        <div class="mt-auto pt-3 border-top border-dark d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary font-monospace">Generative AI</span>
+                            <a href="{% url 'assistant:chat' %}" class="text-cyan small fw-semibold text-decoration-none">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 8 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card glass-card p-4 h-100">
+                        <div class="module-icon-box bg-gradient-teal">
+                            <i class="fa-solid fa-spider"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mt-3 mb-2">Universal Web Scraper</h4>
+                        <p class="text-muted small">Extract structured tables and unstructured text from any website directly into clean datasets for training.</p>
+                        <div class="mt-auto pt-3 border-top border-dark d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary font-monospace">Web Intelligence</span>
+                            <a href="{% url 'scraper:home' %}" class="text-cyan small fw-semibold text-decoration-none">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 9 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card glass-card p-4 h-100">
+                        <div class="module-icon-box bg-gradient-pink">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mt-3 mb-2">AI Report Generator</h4>
+                        <p class="text-muted small">Generate executive PDF reports with automated summary insights, statistical charts, and key model findings in 1 click.</p>
+                        <div class="mt-auto pt-3 border-top border-dark d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary font-monospace">Executive PDF</span>
+                            <a href="{% url 'reports:home' %}" class="text-cyan small fw-semibold text-decoration-none">Explore <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Live Demo Feature Switcher -->
+    <section id="demo" class="py-5 bg-dark-glass">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-purple text-white px-3 py-2 rounded-pill fw-bold text-uppercase">Interactive Preview</span>
+                <h2 class="display-5 fw-extrabold text-white brand-font mt-2">Experience IntelliHub AI in Action</h2>
+                <p class="text-muted fs-5 max-w-700 mx-auto">Click through the interactive tabs below to see simulated outputs from our platform core engines.</p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+                <button class="btn demo-tab-btn active" data-tab="tab-cleaner">
+                    <i class="fa-solid fa-wand-magic-sparkles me-2 text-info"></i> AI Data Cleaner
+                </button>
+                <button class="btn demo-tab-btn" data-tab="tab-automl">
+                    <i class="fa-solid fa-robot me-2 text-warning"></i> AutoML Leaderboard
+                </button>
+                <button class="btn demo-tab-btn" data-tab="tab-deeplearning">
+                    <i class="fa-solid fa-network-wired me-2 text-danger"></i> Deep Learning Studio
+                </button>
+                <button class="btn demo-tab-btn" data-tab="tab-assistant">
+                    <i class="fa-solid fa-comments me-2 text-purple"></i> AI Analyst Assistant
+                </button>
+            </div>
+
+            <!-- Tab Content Cards -->
+            <div class="glass-card p-4 shadow-lg border-cyan">
+                <!-- Tab 1: AI Data Cleaner -->
+                <div id="tab-cleaner" class="demo-tab-content active">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-6">
+                            <h3 class="fw-bold text-white mb-3">1-Click Automated Data Cleaning</h3>
+                            <p class="text-muted">IntelliHub AI detects missing entries, handles skewed values, encodes categorical variables, and scales numerical columns automatically.</p>
+                            <ul class="list-unstyled text-light gap-2 d-grid">
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> K-NN & Mean Imputation for missing values</li>
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> IQR & Z-score Outlier filtering</li>
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> One-Hot & Label Encoding transformer</li>
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Standard & Min-Max Scalers</li>
+                            </ul>
+                            <a href="{% url 'cleaner:home' %}" class="btn btn-gradient-primary mt-3">Clean Your Dataset Now</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-3 bg-darker rounded-3 border border-dark font-monospace text-start small">
+                                <div class="text-muted mb-2">// Dataset Transformation Output Log</div>
+                                <div class="text-success">[SUCCESS] Loaded file: customer_behavior.csv (15,000 rows, 14 columns)</div>
+                                <div class="text-warning">[WARNING] Detected 432 null values in column 'income'</div>
+                                <div class="text-info">[ACTION] Applied Median Imputation to 'income' -> 0 nulls remaining</div>
+                                <div class="text-info">[ACTION] Encoded 'region' (Categorical) -> 4 One-Hot columns created</div>
+                                <div class="text-info">[ACTION] Scaled 'age', 'spend_score' with StandardScaler</div>
+                                <div class="text-success mt-2">[COMPLETE] Preprocessed dataset ready. Clean quality score: 100/100</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: AutoML Leaderboard -->
+                <div id="tab-automl" class="demo-tab-content d-none">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-6">
+                            <h3 class="fw-bold text-white mb-3">Automated Machine Learning Benchmark</h3>
+                            <p class="text-muted">Train up to 5 state-of-the-art ML algorithms simultaneously with cross-validation and hyperparameter optimization.</p>
+                            <ul class="list-unstyled text-light gap-2 d-grid">
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Random Forest, SVM, XGBoost, Decision Trees, k-NN</li>
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Automated Feature Importance Ranking</li>
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Interactive Confusion Matrix & ROC Curves</li>
+                            </ul>
+                            <a href="{% url 'ml_studio:home' %}" class="btn btn-gradient-primary mt-3">Launch ML Studio</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-3 bg-darker rounded-3 border border-dark text-start">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="fw-bold text-light">AutoML Leaderboard</span>
+                                    <span class="badge bg-success">Cross Validation: 5-Fold</span>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between small text-light mb-1">
+                                        <span>Random Forest</span>
+                                        <span class="text-cyan fw-bold">96.8% Acc</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-gradient-cyan" style="width: 96.8%;"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between small text-light mb-1">
+                                        <span>XGBoost Classifier</span>
+                                        <span class="text-info fw-bold">95.4% Acc</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-info" style="width: 95.4%;"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between small text-light mb-1">
+                                        <span>SVM Classifier</span>
+                                        <span class="text-warning fw-bold">91.2% Acc</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" style="width: 91.2%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Deep Learning Studio -->
+                <div id="tab-deeplearning" class="demo-tab-content d-none">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-6">
+                            <h3 class="fw-bold text-white mb-3">Custom Neural Network Architecture</h3>
+                            <p class="text-muted">Visually configure dense neural net hidden layers, activation functions (ReLU, Sigmoid, Softmax), learning rates, and optimizers (Adam, SGD).</p>
+                            <ul class="list-unstyled text-light gap-2 d-grid">
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Custom Layer Stacking (Input → Hidden → Output)</li>
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Live Loss & Accuracy Curve Graphs</li>
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Dropout & L2 Regularization controls</li>
+                            </ul>
+                            <a href="{% url 'dl_studio:home' %}" class="btn btn-gradient-primary mt-3">Open Deep Learning Studio</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-3 bg-darker rounded-3 border border-dark text-start">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold text-light font-monospace">Architecture: Dense (128) -> Dropout (0.2) -> Dense (64) -> Output (1)</span>
+                                </div>
+                                <div class="p-3 bg-black rounded text-cyan font-monospace small">
+                                    Epoch 50/50 [==============================] - 2s 40ms/step<br>
+                                    loss: 0.0412 - accuracy: 0.9840 - val_loss: 0.0521 - val_accuracy: 0.9780<br>
+                                    <span class="text-success">✔ Neural Network convergence reached! Model saved.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: AI Analyst Assistant -->
+                <div id="tab-assistant" class="demo-tab-content d-none">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-6">
+                            <h3 class="fw-bold text-white mb-3">Conversational AI Dataset Analyst</h3>
+                            <p class="text-muted">Ask questions about your data in plain English. Get instant statistical answers, trend analysis, and suggested next steps.</p>
+                            <ul class="list-unstyled text-light gap-2 d-grid">
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Context-Aware Query Engine</li>
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Automatic Chart & Plot suggestions</li>
+                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Anomaly & Outlier explanations</li>
+                            </ul>
+                            <a href="{% url 'assistant:chat' %}" class="btn btn-gradient-primary mt-3">Chat With AI Analyst</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-3 bg-darker rounded-3 border border-dark text-start">
+                                <div class="p-2 mb-2 bg-secondary bg-opacity-25 rounded text-light small">
+                                    <i class="fa-solid fa-user text-info me-2"></i> <strong>User:</strong> What are the top factors influencing customer churn in this dataset?
+                                </div>
+                                <div class="p-2 bg-primary bg-opacity-25 rounded text-light small">
+                                    <i class="fa-solid fa-brain text-cyan me-2"></i> <strong>AI Analyst:</strong> Based on the Random Forest feature importances:
+                                    <ol class="mb-0 mt-1 ps-3">
+                                        <td>1. Monthly Charges (34% importance)</td>
+                                        <td>2. Contract Type - Month-to-Month (28% importance)</td>
+                                        <td>3. Tenure Duration (19% importance)</td>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Workflow Pipeline -->
+    <section id="workflow" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-success text-dark px-3 py-2 rounded-pill fw-bold text-uppercase">Simple 4-Step Process</span>
+                <h2 class="display-5 fw-extrabold text-white brand-font mt-2">How IntelliHub AI Works</h2>
+                <p class="text-muted fs-5 max-w-700 mx-auto">From raw data input to predictive model deployment in under 5 minutes.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Step 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="glass-card p-4 text-center h-100 position-relative">
+                        <div class="step-num-badge">1</div>
+                        <div class="fs-1 text-cyan mb-3"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                        <h4 class="fw-bold text-white mb-2">1. Upload Data</h4>
+                        <p class="text-muted small mb-0">Upload CSV, Excel, JSON files or extract data directly using our Universal Web Scraper.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="glass-card p-4 text-center h-100 position-relative">
+                        <div class="step-num-badge">2</div>
+                        <div class="fs-1 text-purple mb-3"><i class="fa-solid fa-wand-sparkles"></i></div>
+                        <h4 class="fw-bold text-white mb-2">2. Clean & Explore</h4>
+                        <p class="text-muted small mb-0">Run automated AI data cleaning, missing value imputation, and interactive EDA heatmaps.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="glass-card p-4 text-center h-100 position-relative">
+                        <div class="step-num-badge">3</div>
+                        <div class="fs-1 text-amber mb-3"><i class="fa-solid fa-microchip"></i></div>
+                        <h4 class="fw-bold text-white mb-2">3. Train Models</h4>
+                        <p class="text-muted small mb-0">Execute 1-click AutoML benchmarks or design deep neural networks with live metrics tracking.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="glass-card p-4 text-center h-100 position-relative">
+                        <div class="step-num-badge">4</div>
+                        <div class="fs-1 text-success mb-3"><i class="fa-solid fa-file-export"></i></div>
+                        <h4 class="fw-bold text-white mb-2">4. Export & Decide</h4>
+                        <p class="text-muted small mb-0">Generate executive PDF reports, make real-time predictions, or consult the AI Assistant.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transparent SaaS Pricing Section -->
+    <section id="pricing" class="py-5 bg-dark-glass">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-amber text-dark px-3 py-2 rounded-pill fw-bold text-uppercase">Flexible Plans</span>
+                <h2 class="display-5 fw-extrabold text-white brand-font mt-2">Transparent Pricing for Everyone</h2>
+                <p class="text-muted fs-5 max-w-700 mx-auto">Choose the right plan for your data science and analytics requirements.</p>
+            </div>
+
+            <div class="row g-4 align-items-center justify-content-center">
+                <!-- Free Plan -->
+                <div class="col-lg-4">
+                    <div class="glass-card p-4 text-center h-100">
+                        <div class="text-uppercase fw-bold text-cyan small tracking-wider mb-2">Starter / Hobby</div>
+                        <div class="display-4 fw-extrabold text-white brand-font mb-1">$0<span class="fs-6 text-muted font-normal"> / mo</span></div>
+                        <p class="text-muted small mb-4">Ideal for students & data enthusiasts getting started.</p>
+                        <hr class="border-dark">
+                        <ul class="list-unstyled text-start text-light small gap-3 d-grid my-4">
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Up to 5 Datasets</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Basic AutoML Algorithms</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Exploratory EDA Visualizer</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Standard AI Data Cleaning</li>
+                            <li class="text-muted opacity-50"><i class="fa-solid fa-xmark me-2"></i> Deep Learning Studio</li>
+                            <li class="text-muted opacity-50"><i class="fa-solid fa-xmark me-2"></i> AI Executive PDF Reports</li>
+                        </ul>
+                        <a href="{% url 'accounts:register' %}" class="btn btn-outline-light w-100 py-2 fw-bold">Get Started Free</a>
+                    </div>
+                </div>
+
+                <!-- Pro Plan (Featured) -->
+                <div class="col-lg-4">
+                    <div class="glass-card p-4 p-md-5 text-center h-100 position-relative border-cyan shadow-cyan">
+                        <div class="featured-badge">MOST POPULAR</div>
+                        <div class="text-uppercase fw-bold text-purple small tracking-wider mb-2">Pro Developer</div>
+                        <div class="display-4 fw-extrabold text-white brand-font mb-1">$29<span class="fs-6 text-muted font-normal"> / mo</span></div>
+                        <p class="text-muted small mb-4">For data scientists, analysts & professional teams.</p>
+                        <hr class="border-dark">
+                        <ul class="list-unstyled text-start text-light small gap-3 d-grid my-4">
+                            <li><i class="fa-solid fa-check text-success me-2"></i> <strong>Unlimited Datasets</strong></li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Full AutoML Engine & Leaderboard</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> <strong>Deep Learning Neural Studio</strong></li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> <strong>AI Analyst Conversational Assistant</strong></li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Universal Web Scraper</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Executive PDF Report Synthesis</li>
+                        </ul>
+                        <a href="{% url 'accounts:register' %}" class="btn btn-gradient-primary w-100 py-3 fw-bold fs-6">Start 14-Day Free Trial</a>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="col-lg-4">
+                    <div class="glass-card p-4 text-center h-100">
+                        <div class="text-uppercase fw-bold text-amber small tracking-wider mb-2">Enterprise AI</div>
+                        <div class="display-4 fw-extrabold text-white brand-font mb-1">$99<span class="fs-6 text-muted font-normal"> / mo</span></div>
+                        <p class="text-muted small mb-4">Dedicated infrastructure and custom ML pipelines.</p>
+                        <hr class="border-dark">
+                        <ul class="list-unstyled text-start text-light small gap-3 d-grid my-4">
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Everything in Pro Developer</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Dedicated GPU Acceleration Cluster</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> REST API Access for Inference</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Custom Model Deployment Pipelines</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> 24/7 Priority Support & SLA</li>
+                        </ul>
+                        <a href="{% url 'accounts:register' %}" class="btn btn-outline-light w-100 py-2 fw-bold">Contact Enterprise Sales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Social Proof -->
+    <section class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-info text-dark px-3 py-2 rounded-pill fw-bold text-uppercase">Loved by Scientists & Engineers</span>
+                <h2 class="display-5 fw-extrabold text-white brand-font mt-2">What Users Say About IntelliHub AI</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="text-warning mb-3">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-muted small mb-4">"IntelliHub AI cut our data prep and AutoML training time from days to minutes! The clean interface and automated EDA correlation heatmaps are game changers."</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="avatar-circle bg-primary text-white font-bold">SC</div>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-white">Dr. Sarah Chen</h6>
+                                <small class="text-muted">Lead Data Scientist, DataCorp</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="text-warning mb-3">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-muted small mb-4">"The Deep Learning Studio and AI Analyst Assistant allow our product team to test hypotheses and export executive PDF reports instantly without writing boilerplates."</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="avatar-circle bg-purple text-white font-bold">AR</div>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-white">Alex Rivera</h6>
+                                <small class="text-muted">Analytics Director, FinTech Global</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="text-warning mb-3">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-muted small mb-4">"Having Web Scraping, Data Cleaning, AutoML, and Executive PDF Reports inside one unified dark-mode web application is truly impressive."</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="avatar-circle bg-success text-white font-bold">MV</div>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-white">Marcus Vance</h6>
+                                <small class="text-muted">Machine Learning Engineer, AI Labs</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frequently Asked Questions (FAQ) Accordion -->
+    <section id="faq" class="py-5 bg-dark-glass">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-secondary text-white px-3 py-2 rounded-pill fw-bold text-uppercase">Got Questions?</span>
+                <h2 class="display-5 fw-extrabold text-white brand-font mt-2">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion accordion-dark glass-card p-2 p-md-3" id="faqAccordion">
+                        <div class="accordion-item bg-transparent border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button bg-darker text-white fw-bold collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Do I need programming or machine learning experience to use IntelliHub AI?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted small">
+                                    No! IntelliHub AI is designed for both beginners and experienced data professionals. Our 1-click AI Data Cleaner, AutoML leaderboard, and AI Analyst Assistant handle complex algorithms automatically.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item bg-transparent border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button bg-darker text-white fw-bold collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    What dataset file formats are supported?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted small">
+                                    We support CSV (`.csv`), Excel (`.xlsx`, `.xls`), and JSON (`.json`) datasets. You can also use our Universal Web Scraper to extract online tables into structured datasets.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item bg-transparent border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button bg-darker text-white fw-bold collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    How does the AI Data Cleaner work?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted small">
+                                    The cleaner scans your dataset columns, calculates null ratios, identifies outliers using statistical bounds (IQR/Z-score), encodes categorical variables, and scales numerical attributes for model training.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item bg-transparent border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button bg-darker text-white fw-bold collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    Is my uploaded data private and secure?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted small">
+                                    Yes, all uploaded datasets and trained models are strictly isolated to your user account and protected with enterprise-grade encryption.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Call to Action (CTA) Banner -->
+    <section class="py-5 position-relative overflow-hidden">
+        <div class="container py-4">
+            <div class="glass-card p-5 text-center cta-banner border-cyan position-relative">
+                <div class="cta-glow"></div>
+                <h2 class="display-4 fw-extrabold text-white brand-font mb-3">Ready to Supercharge Your Data Workflow?</h2>
+                <p class="text-muted fs-5 max-w-700 mx-auto mb-4">Join data scientists, analysts, and developers accelerating their analytics with IntelliHub AI.</p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard:home' %}" class="btn btn-gradient-primary btn-lg px-5 py-3 fw-bold fs-6">
+                        <i class="fa-solid fa-gauge-high me-2"></i> Access Your Workspace
+                    </a>
+                    {% else %}
+                    <a href="{% url 'accounts:register' %}" class="btn btn-gradient-primary btn-lg px-5 py-3 fw-bold fs-6">
+                        <i class="fa-solid fa-rocket me-2"></i> Create Free Account Now
+                    </a>
+                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-light btn-lg px-4 py-3 fw-bold fs-6">
+                        <i class="fa-solid fa-right-to-bracket me-2"></i> Log In
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Landing Footer -->
+    <footer class="landing-footer py-5 border-top border-dark text-muted small">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <a class="d-flex align-items-center gap-2 text-decoration-none mb-3" href="/">
+                        <i class="fa-solid fa-brain text-info fs-3"></i>
+                        <span class="fw-bold brand-font text-white fs-4">IntelliHub AI</span>
+                    </a>
+                    <p class="text-muted small">Next-generation AI and data analytics SaaS platform for data cleaning, EDA, AutoML, deep learning, web scraping, and executive reports.</p>
+                    <div class="d-flex gap-3 text-light fs-5">
+                        <a href="#" class="text-muted text-cyan-hover"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="text-muted text-cyan-hover"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="text-muted text-cyan-hover"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" class="text-muted text-cyan-hover"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="text-white fw-bold mb-3">Platform</h6>
+                    <ul class="list-unstyled d-grid gap-2">
+                        <li><a href="{% url 'dashboard:home' %}" class="text-muted text-decoration-none">Dashboard</a></li>
+                        <li><a href="{% url 'datasets:list' %}" class="text-muted text-decoration-none">Dataset Manager</a></li>
+                        <li><a href="{% url 'cleaner:home' %}" class="text-muted text-decoration-none">AI Data Cleaner</a></li>
+                        <li><a href="{% url 'eda:home' %}" class="text-muted text-decoration-none">Exploratory EDA</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="text-white fw-bold mb-3">AI Engines</h6>
+                    <ul class="list-unstyled d-grid gap-2">
+                        <li><a href="{% url 'ml_studio:home' %}" class="text-muted text-decoration-none">ML Studio & AutoML</a></li>
+                        <li><a href="{% url 'dl_studio:home' %}" class="text-muted text-decoration-none">Deep Learning Studio</a></li>
+                        <li><a href="{% url 'assistant:chat' %}" class="text-muted text-decoration-none">AI Analyst Assistant</a></li>
+                        <li><a href="{% url 'scraper:home' %}" class="text-muted text-decoration-none">Universal Scraper</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="text-white fw-bold mb-3">Resources</h6>
+                    <ul class="list-unstyled d-grid gap-2">
+                        <li><a href="#features" class="text-muted text-decoration-none">Features</a></li>
+                        <li><a href="#pricing" class="text-muted text-decoration-none">Pricing Tiers</a></li>
+                        <li><a href="#faq" class="text-muted text-decoration-none">Documentation</a></li>
+                        <li><a href="{% url 'reports:home' %}" class="text-muted text-decoration-none">Executive Reports</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="text-white fw-bold mb-3">Account</h6>
+                    <ul class="list-unstyled d-grid gap-2">
+                        <li><a href="{% url 'accounts:login' %}" class="text-muted text-decoration-none">Sign In</a></li>
+                        <li><a href="{% url 'accounts:register' %}" class="text-muted text-decoration-none">Register Account</a></li>
+                        <li><a href="{% url 'accounts:profile' %}" class="text-muted text-decoration-none">User Settings</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center border-top border-dark pt-4">
+                <p class="mb-0">&copy; 2026 IntelliHub AI Inc. All rights reserved.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-muted text-decoration-none">Privacy Policy</a>
+                    <a href="#" class="text-muted text-decoration-none">Terms of Service</a>
+                    <a href="#" class="text-muted text-decoration-none">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Interactive Demo Tab Switcher Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tabBtns = document.querySelectorAll(".demo-tab-btn");
+            const tabContents = document.querySelectorAll(".demo-tab-content");
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    tabBtns.forEach(b => b.classList.remove("active"));
+                    tabContents.forEach(c => {
+                        c.classList.add("d-none");
+                        c.classList.remove("active");
+                    });
+
+                    this.classList.add("active");
+                    const targetId = this.getAttribute("data-tab");
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) {
+                        targetContent.classList.remove("d-none");
+                        targetContent.classList.add("active");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
