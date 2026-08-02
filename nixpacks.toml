@@ -1,11 +1,14 @@
 [providers]
 providers = ["python"]
 
-[build]
-cmds = [
-  "pip install -r requirements.txt",
-  "python manage.py collectstatic --noinput"
-]
+[variables]
+PYTHON_VERSION = "3.11"
+
+[phase.install]
+cmds = ["pip install --no-cache-dir -r requirements.txt"]
+
+[phase.build]
+cmds = ["python manage.py collectstatic --noinput"]
 
 [start]
 cmd = "python manage.py migrate && gunicorn intellihub.wsgi:application --bind 0.0.0.0:$PORT"
