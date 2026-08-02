@@ -20,33 +20,53 @@
 </div>
 
 <!-- Dataset Metadata & Version Control Header Cards -->
-<div class="row g-4 mb-4">
-    <div class="col-md-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-table-rows stat-icon text-info"></i>
-            <span class="text-muted d-block small">Total Rows</span>
-            <div class="stat-value text-info">{{ meta.row_count|default:0 }}</div>
+<div class="row g-3 g-md-4 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="glass-card stat-card p-3 p-md-4 h-100 d-flex flex-column justify-content-between position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-bold text-white fs-6" style="letter-spacing: 0.3px;">Total Rows</span>
+                <i class="fa-solid fa-table-list fs-3" style="color: #38bdf8 !important; opacity: 0.9 !important;"></i>
+            </div>
+            <div class="stat-value fw-black my-1" style="color: #38bdf8 !important; text-shadow: 0 0 14px rgba(56, 189, 248, 0.6); font-size: 2.2rem;">
+                {{ meta.row_count|default:0 }}
+            </div>
+            <span class="small" style="color: #cbd5e1 !important; font-weight: 500;">Active Records</span>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-columns stat-icon text-success"></i>
-            <span class="text-muted d-block small">Columns</span>
-            <div class="stat-value text-success">{{ meta.column_count|default:0 }}</div>
+    <div class="col-6 col-md-3">
+        <div class="glass-card stat-card p-3 p-md-4 h-100 d-flex flex-column justify-content-between position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-bold text-white fs-6" style="letter-spacing: 0.3px;">Columns</span>
+                <i class="fa-solid fa-table-columns fs-3" style="color: #4ade80 !important; opacity: 0.9 !important;"></i>
+            </div>
+            <div class="stat-value fw-black my-1" style="color: #4ade80 !important; text-shadow: 0 0 14px rgba(74, 222, 128, 0.6); font-size: 2.2rem;">
+                {{ meta.column_count|default:0 }}
+            </div>
+            <span class="small" style="color: #cbd5e1 !important; font-weight: 500;">Data Attributes</span>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-triangle-exclamation stat-icon text-warning"></i>
-            <span class="text-muted d-block small">Missing Values</span>
-            <div class="stat-value text-warning">{{ meta.missing_values|default:0 }}</div>
+    <div class="col-6 col-md-3">
+        <div class="glass-card stat-card p-3 p-md-4 h-100 d-flex flex-column justify-content-between position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-bold text-white fs-6" style="letter-spacing: 0.3px;">Missing Values</span>
+                <i class="fa-solid fa-triangle-exclamation fs-3" style="color: #fbbf24 !important; opacity: 0.9 !important;"></i>
+            </div>
+            <div class="stat-value fw-black my-1" style="color: #fbbf24 !important; text-shadow: 0 0 14px rgba(251, 191, 36, 0.6); font-size: 2.2rem;">
+                {{ meta.missing_values|default:0 }}
+            </div>
+            <span class="small" style="color: #cbd5e1 !important; font-weight: 500;">Null Cell Count</span>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-copy stat-icon text-rose" style="color:#f43f5e"></i>
-            <span class="text-muted d-block small">Duplicate Rows</span>
-            <div class="stat-value" style="color:#f43f5e">{{ meta.duplicate_rows|default:0 }}</div>
+    <div class="col-6 col-md-3">
+        <div class="glass-card stat-card p-3 p-md-4 h-100 d-flex flex-column justify-content-between position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-bold text-white fs-6" style="letter-spacing: 0.3px;">Duplicate Rows</span>
+                <i class="fa-solid fa-clone fs-3" style="color: #f43f5e !important; opacity: 0.9 !important;"></i>
+            </div>
+            <div class="stat-value fw-black my-1" style="color: #f43f5e !important; text-shadow: 0 0 14px rgba(244, 63, 94, 0.6); font-size: 2.2rem;">
+                {{ meta.duplicate_rows|default:0 }}
+            </div>
+            <span class="small" style="color: #cbd5e1 !important; font-weight: 500;">Identical Rows</span>
         </div>
     </div>
 </div>

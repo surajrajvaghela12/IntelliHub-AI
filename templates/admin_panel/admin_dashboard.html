@@ -16,33 +16,53 @@
 </div>
 
 <!-- Admin Stats Row -->
-<div class="row g-4 mb-4">
-    <div class="col-md-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-users stat-icon text-info"></i>
-            <span class="text-muted d-block small">Total Users</span>
-            <div class="stat-value text-info">{{ total_users }}</div>
+<div class="row g-3 g-md-4 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="glass-card stat-card p-3 p-md-4 h-100 d-flex flex-column justify-content-between position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-bold text-white fs-6" style="letter-spacing: 0.3px;">Total Users</span>
+                <i class="fa-solid fa-users fs-3" style="color: #38bdf8 !important; opacity: 0.9 !important;"></i>
+            </div>
+            <div class="stat-value fw-black my-1" style="color: #38bdf8 !important; text-shadow: 0 0 14px rgba(56, 189, 248, 0.6); font-size: 2.2rem;">
+                {{ total_users }}
+            </div>
+            <span class="small" style="color: #cbd5e1 !important; font-weight: 500;">Registered Accounts</span>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-database stat-icon text-success"></i>
-            <span class="text-muted d-block small">Total Datasets</span>
-            <div class="stat-value text-success">{{ total_datasets }}</div>
+    <div class="col-6 col-md-3">
+        <div class="glass-card stat-card p-3 p-md-4 h-100 d-flex flex-column justify-content-between position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-bold text-white fs-6" style="letter-spacing: 0.3px;">Total Datasets</span>
+                <i class="fa-solid fa-database fs-3" style="color: #4ade80 !important; opacity: 0.9 !important;"></i>
+            </div>
+            <div class="stat-value fw-black my-1" style="color: #4ade80 !important; text-shadow: 0 0 14px rgba(74, 222, 128, 0.6); font-size: 2.2rem;">
+                {{ total_datasets }}
+            </div>
+            <span class="small" style="color: #cbd5e1 !important; font-weight: 500;">Uploaded Files</span>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-robot stat-icon text-warning"></i>
-            <span class="text-muted d-block small">Trained Models</span>
-            <div class="stat-value text-warning">{{ total_models }}</div>
+    <div class="col-6 col-md-3">
+        <div class="glass-card stat-card p-3 p-md-4 h-100 d-flex flex-column justify-content-between position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-bold text-white fs-6" style="letter-spacing: 0.3px;">Trained Models</span>
+                <i class="fa-solid fa-robot fs-3" style="color: #fbbf24 !important; opacity: 0.9 !important;"></i>
+            </div>
+            <div class="stat-value fw-black my-1" style="color: #fbbf24 !important; text-shadow: 0 0 14px rgba(251, 191, 36, 0.6); font-size: 2.2rem;">
+                {{ total_models }}
+            </div>
+            <span class="small" style="color: #cbd5e1 !important; font-weight: 500;">AutoML & Deep Models</span>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-bolt stat-icon text-purple" style="color:#a855f7"></i>
-            <span class="text-muted d-block small">Total Predictions</span>
-            <div class="stat-value" style="color:#a855f7">{{ total_predictions }}</div>
+    <div class="col-6 col-md-3">
+        <div class="glass-card stat-card p-3 p-md-4 h-100 d-flex flex-column justify-content-between position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-bold text-white fs-6" style="letter-spacing: 0.3px;">Total Predictions</span>
+                <i class="fa-solid fa-bolt fs-3" style="color: #c084fc !important; opacity: 0.9 !important;"></i>
+            </div>
+            <div class="stat-value fw-black my-1" style="color: #c084fc !important; text-shadow: 0 0 14px rgba(192, 132, 252, 0.6); font-size: 2.2rem;">
+                {{ total_predictions }}
+            </div>
+            <span class="small" style="color: #cbd5e1 !important; font-weight: 500;">Inferences Executed</span>
         </div>
     </div>
 </div>
