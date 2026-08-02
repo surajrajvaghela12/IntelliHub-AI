@@ -119,7 +119,15 @@ WHITENOISE_USE_FINDERS = True
 WHITENOISE_AUTOREFRESH = True
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+if os.environ.get('VERCEL'):
+    MEDIA_ROOT = Path('/tmp/media')
+    os.makedirs(MEDIA_ROOT / 'datasets', exist_ok=True)
+    os.makedirs(MEDIA_ROOT / 'cleaned', exist_ok=True)
+    os.makedirs(MEDIA_ROOT / 'reports', exist_ok=True)
+    os.makedirs(MEDIA_ROOT / 'trained_models', exist_ok=True)
+else:
+    MEDIA_ROOT = BASE_DIR / 'media'
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

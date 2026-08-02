@@ -34,23 +34,37 @@ def dashboard_home_view(request):
         df_models = pd.DataFrame({'algorithm': ['Random Forest', 'kNN', 'Linear Reg', 'SVM', 'Decision Tree'], 'count': [18, 12, 10, 8, 5]})
         fig_models = px.pie(df_models, values='count', names='algorithm', hole=0.4, template="plotly_dark", title="Models Trained by Algorithm")
         
-    fig_models.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(family="Inter, sans-serif", color="#f8fafc"))
+    fig_models.update_layout(
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(family="Inter, sans-serif", color="#f8fafc"),
+        margin=dict(l=20, r=20, t=45, b=20),
+        legend=dict(orientation="h", y=-0.1, x=0.5, xanchor="center")
+    )
     chart_models_json = json.dumps(fig_models, cls=PlotlyJSONEncoder)
 
     # 2. Prediction Trends / Accuracy Bar Chart
     models_qs = TrainedModel.objects.all()[:8]
     if models_qs.exists():
-        df_acc = pd.DataFrame([{'name': f"{m.name} ({m.algorithm})", 'accuracy': round(m.accuracy * 100, 2)} for m in models_qs])
+        df_acc = pd.DataFrame([{'name': f"{m.name[:18]}.. ({m.algorithm})", 'accuracy': round(m.accuracy * 100, 2)} for m in models_qs])
     else:
         df_acc = pd.DataFrame([
             {'name': 'Random Forest (Car Sales)', 'accuracy': 96.5},
             {'name': 'SVM Classifier (Students)', 'accuracy': 92.4},
             {'name': 'kNN Classifier (Supermarket)', 'accuracy': 89.2},
-            {'name': 'Multiple Regression (Car Sales)', 'accuracy': 88.7},
+            {'name': 'Multiple Reg. (Car Sales)', 'accuracy': 88.7},
             {'name': 'Decision Tree (Students)', 'accuracy': 91.0},
         ])
     fig_acc = px.bar(df_acc, x='name', y='accuracy', color='accuracy', color_continuous_scale="Viridis", template="plotly_dark", title="Model Accuracy Comparison (%)")
-    fig_acc.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(family="Inter, sans-serif", color="#f8fafc"), yaxis_range=[0, 100])
+    fig_acc.update_layout(
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(family="Inter, sans-serif", color="#f8fafc"),
+        margin=dict(l=20, r=20, t=45, b=90),
+        yaxis_range=[0, 100],
+        xaxis_title="",
+        yaxis_title="Accuracy (%)"
+    )
     chart_accuracy_json = json.dumps(fig_acc, cls=PlotlyJSONEncoder)
 
     recent_datasets = request.user.datasets.order_by('-updated_at')[:5]
