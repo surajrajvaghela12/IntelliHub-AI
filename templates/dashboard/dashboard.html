@@ -7,35 +7,35 @@
 <!-- Metric Cards Row -->
 <div class="row g-3 g-md-4 mb-4">
     <div class="col-6 col-md-6 col-xl-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-database stat-icon text-info"></i>
-            <span class="text-muted d-block small">Active Datasets</span>
-            <div class="stat-value text-info">{{ total_datasets }}</div>
-            <span class="small text-muted d-none d-sm-inline">Your Datasets: <b>{{ user_datasets }}</b></span>
+        <div class="glass-card stat-card p-3 p-md-4">
+            <i class="fa-solid fa-database stat-icon" style="color: #38bdf8 !important; opacity: 0.9 !important; font-size: 2.2rem;"></i>
+            <span class="d-block fw-bold text-white mb-1" style="font-size: 0.95rem; letter-spacing: 0.3px;">Active Datasets</span>
+            <div class="stat-value fw-black my-1" style="color: #38bdf8 !important; text-shadow: 0 0 14px rgba(56, 189, 248, 0.6); font-size: 2.4rem;">{{ total_datasets }}</div>
+            <span class="small d-none d-sm-inline" style="color: #cbd5e1 !important; font-weight: 500;">Your Datasets: <b class="text-white">{{ user_datasets }}</b></span>
         </div>
     </div>
     <div class="col-6 col-md-6 col-xl-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-users stat-icon text-purple" style="color:#a855f7"></i>
-            <span class="text-muted d-block small">Platform Users</span>
-            <div class="stat-value" style="color:#a855f7">{{ total_users }}</div>
-            <span class="small text-muted d-none d-sm-inline">Registered Accounts</span>
+        <div class="glass-card stat-card p-3 p-md-4">
+            <i class="fa-solid fa-users stat-icon" style="color: #c084fc !important; opacity: 0.9 !important; font-size: 2.2rem;"></i>
+            <span class="d-block fw-bold text-white mb-1" style="font-size: 0.95rem; letter-spacing: 0.3px;">Platform Users</span>
+            <div class="stat-value fw-black my-1" style="color: #c084fc !important; text-shadow: 0 0 14px rgba(192, 132, 252, 0.6); font-size: 2.4rem;">{{ total_users }}</div>
+            <span class="small d-none d-sm-inline" style="color: #cbd5e1 !important; font-weight: 500;">Registered Accounts</span>
         </div>
     </div>
     <div class="col-6 col-md-6 col-xl-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-robot stat-icon text-success"></i>
-            <span class="text-muted d-block small">Trained AI Models</span>
-            <div class="stat-value text-success">{{ total_models }}</div>
-            <span class="small text-muted d-none d-sm-inline">Your Trained: <b>{{ user_models }}</b></span>
+        <div class="glass-card stat-card p-3 p-md-4">
+            <i class="fa-solid fa-robot stat-icon" style="color: #4ade80 !important; opacity: 0.9 !important; font-size: 2.2rem;"></i>
+            <span class="d-block fw-bold text-white mb-1" style="font-size: 0.95rem; letter-spacing: 0.3px;">Trained AI Models</span>
+            <div class="stat-value fw-black my-1" style="color: #4ade80 !important; text-shadow: 0 0 14px rgba(74, 222, 128, 0.6); font-size: 2.4rem;">{{ total_models }}</div>
+            <span class="small d-none d-sm-inline" style="color: #cbd5e1 !important; font-weight: 500;">Your Trained: <b class="text-white">{{ user_models }}</b></span>
         </div>
     </div>
     <div class="col-6 col-md-6 col-xl-3">
-        <div class="glass-card stat-card">
-            <i class="fa-solid fa-bullseye stat-icon text-amber" style="color:#f59e0b"></i>
-            <span class="text-muted d-block small">Average Accuracy</span>
-            <div class="stat-value" style="color:#f59e0b">{{ avg_accuracy }}%</div>
-            <span class="small text-muted d-none d-sm-inline">Total Predictions: <b>{{ total_predictions }}</b></span>
+        <div class="glass-card stat-card p-3 p-md-4">
+            <i class="fa-solid fa-bullseye stat-icon" style="color: #fbbf24 !important; opacity: 0.9 !important; font-size: 2.2rem;"></i>
+            <span class="d-block fw-bold text-white mb-1" style="font-size: 0.95rem; letter-spacing: 0.3px;">Average Accuracy</span>
+            <div class="stat-value fw-black my-1" style="color: #fbbf24 !important; text-shadow: 0 0 14px rgba(251, 191, 36, 0.6); font-size: 2.4rem;">{{ avg_accuracy }}%</div>
+            <span class="small d-none d-sm-inline" style="color: #cbd5e1 !important; font-weight: 500;">Total Predictions: <b class="text-white">{{ total_predictions }}</b></span>
         </div>
     </div>
 </div>

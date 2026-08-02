@@ -240,15 +240,15 @@ p, span, label, small, div, td, th {
     position: absolute;
     right: 1.25rem;
     top: 1.25rem;
-    font-size: 2.5rem;
-    opacity: 0.3;
+    font-size: 2.2rem;
+    opacity: 0.9 !important;
 }
 
 .stat-value {
-    font-size: 2.2rem;
-    font-weight: 800;
+    font-size: 2.4rem;
+    font-weight: 900;
     line-height: 1.2;
-    color: #ffffff !important;
+    letter-spacing: -0.5px;
 }
 
 /* Buttons */
