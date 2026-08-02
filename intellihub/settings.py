@@ -10,11 +10,33 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.railway.app',
-    'https://*.up.railway.app',
+    'https://*.vercel.app',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
 ]
+
+WSGI_APPLICATION = 'intellihub.wsgi.application'
+
+if os.environ.get('VERCEL'):
+    import shutil
+    db_path = Path('/tmp/db.sqlite3')
+    original_db = BASE_DIR / 'db.sqlite3'
+    if not db_path.exists() and original_db.exists():
+        shutil.copyfile(original_db, db_path)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': db_path,
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 
 
 INSTALLED_APPS = [
@@ -68,14 +90,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'intellihub.wsgi.application'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 AUTH_USER_MODEL = 'accounts.User'
 
