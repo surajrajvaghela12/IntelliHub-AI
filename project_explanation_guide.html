@@ -3,255 +3,644 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IntelliHub AI - Complete Project Master Guide & Viva Cheatsheet</title>
+    <title>IntelliHub AI - Complete Beginner-to-Master Project Textbook & Technical Guide</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #151d30;
+            --accent-cyan: #38bdf8;
+            --accent-purple: #c084fc;
+            --accent-green: #4ade80;
+            --accent-yellow: #fde047;
+            --border-color: #1e293b;
+        }
         body {
-            background-color: #0b0f19;
+            background-color: var(--bg-color);
             color: #e2e8f0;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            padding: 40px 20px;
-            line-height: 1.6;
+            padding: 30px 15px;
+            line-height: 1.7;
         }
-        .main-card {
-            background: #151d30;
-            border: 1px solid #1e293b;
+        .guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero-header {
+            background: linear-gradient(135deg, #1e293b 0%, #0b0f19 100%);
+            border: 1px solid var(--accent-cyan);
             border-radius: 16px;
-            padding: 35px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
         }
-        .section-title {
-            color: #38bdf8;
+        .chapter-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .chapter-title {
+            color: var(--accent-cyan);
             font-weight: 700;
-            border-bottom: 2px solid #1e293b;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            margin-top: 30px;
+            font-size: 1.6rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
         }
-        .tech-box {
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            padding: 20px;
+        .sub-title {
+            color: var(--accent-purple);
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-top: 25px;
             margin-bottom: 15px;
         }
-        .tech-badge {
-            background: rgba(56, 189, 248, 0.15);
+        .file-tag {
+            background: #0f172a;
             color: #38bdf8;
-            border: 1px solid rgba(56, 189, 248, 0.4);
+            border: 1px solid #334155;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .concept-box {
+            background: #0f172a;
+            border-left: 4px solid var(--accent-cyan);
+            padding: 18px 22px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .concept-box.purple { border-left-color: var(--accent-purple); }
+        .concept-box.green { border-left-color: var(--accent-green); }
+        .concept-box.yellow { border-left-color: var(--accent-yellow); }
+
+        .route-badge {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(56, 189, 248, 0.3);
             padding: 4px 10px;
             border-radius: 6px;
-            font-weight: 600;
+            font-weight: bold;
             font-size: 0.85rem;
+        }
+        .step-number {
+            background: var(--accent-cyan);
+            color: #0b0f19;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
         }
         .qa-card {
             background: #0f172a;
-            border-left: 4px solid #a855f7;
-            border-radius: 8px;
-            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 22px;
             margin-bottom: 20px;
         }
-        .qa-card .question {
-            color: #c084fc;
+        .qa-q {
+            color: var(--accent-yellow);
             font-weight: 700;
             font-size: 1.1rem;
             margin-bottom: 10px;
         }
-        .qa-card .answer {
+        .qa-a {
             color: #cbd5e1;
         }
-        .code-ref {
-            background: #1e293b;
-            color: #38bdf8;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 0.9rem;
+        .table-custom {
+            background: #0f172a;
+            border-radius: 8px;
+            overflow: hidden;
         }
+        .toc-list a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+        .toc-list a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-<div class="container max-width-xl">
-    <div class="main-card">
-        <div class="text-center mb-5">
-            <h1 class="display-5 fw-bold text-info"><i class="fa-solid fa-brain me-3"></i>IntelliHub AI - Master Technical Guide</h1>
-            <p class="lead text-light opacity-75">Complete Viva Preparation, Technology Stack, Code Mapping & Jury Q&A Cheatsheet</p>
-            <div class="d-flex justify-content-center gap-2 mt-3">
-                <span class="badge bg-primary px-3 py-2 fs-6">Live URL: intellihub-ai-portal.vercel.app</span>
-                <span class="badge bg-secondary px-3 py-2 fs-6">Django 5 + Python 3.13</span>
+<div class="guide-container">
+
+    <!-- Hero Header -->
+    <div class="hero-header text-center">
+        <h1 class="display-4 fw-bold text-info"><i class="fa-solid fa-book-open-reader me-3"></i>IntelliHub AI: Complete Beginner-to-Master Guide</h1>
+        <p class="lead text-light opacity-75 mt-2">The Ultimate Project Manual, Code Architecture Explanation & Jury Viva Cheatsheet</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+            <span class="badge bg-primary px-3 py-2 fs-6"><i class="fa-solid fa-globe me-1"></i> Live: intellihub-ai-portal.vercel.app</span>
+            <span class="badge bg-info text-dark px-3 py-2 fs-6"><i class="fa-solid fa-code me-1"></i> Tech: Django 5 + Python 3.13 + Pandas + Scikit-Learn</span>
+            <span class="badge bg-success px-3 py-2 fs-6"><i class="fa-solid fa-users me-1"></i> Team: Suraj, Nandish, Himanshu</span>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-list-ol me-2"></i>Table of Contents</h2>
+        <div class="row toc-list">
+            <div class="col-md-6">
+                <ul>
+                    <li><a href="#ch1">Chapter 1: What is IntelliHub AI? (Simple Explanation)</a></li>
+                    <li><a href="#ch2">Chapter 2: Beginner's Guide to Web Technology Used</a></li>
+                    <li><a href="#ch3">Chapter 3: How Django Works (MVT Architecture Explained)</a></li>
+                    <li><a href="#ch4">Chapter 4: Project Directory Structure & App Breakdown</a></li>
+                    <li><a href="#ch5">Chapter 5: Detailed Page-by-Page & Functionality Walkthrough</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul>
+                    <li><a href="#ch6">Chapter 6: Deep Technical Algorithms & Math Logic</a></li>
+                    <li><a href="#ch7">Chapter 7: How Deployment Works (Vercel & SQLite)</a></li>
+                    <li><a href="#ch8">Chapter 8: Glossary of Technical Terms (Beginner Dictionary)</a></li>
+                    <li><a href="#ch9">Chapter 9: 25 Master Jury Questions & Exact Answers</a></li>
+                </ul>
             </div>
         </div>
+    </div>
 
-        <!-- Section 1: Technology Stack -->
-        <h2 class="section-title"><i class="fa-solid fa-layer-group me-2"></i>1. Full Technology Stack & Tools Used</h2>
+    <!-- Chapter 1 -->
+    <div id="ch1" class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-star me-2"></i>Chapter 1: What is IntelliHub AI? (Simple Explanation)</h2>
+        <div class="concept-box">
+            <p class="mb-0"><strong>Imagine you have a messy Excel sheet with thousands of customer data rows, missing phone numbers, and random text.</strong> Normally, a data scientist has to write hundreds of lines of Python code in Jupyter Notebooks to clean the data, create charts in PowerBI, and train Machine Learning models in specialized software.<br><br>
+            <strong>IntelliHub AI solves this problem completely!</strong> It is a web application where anyone — even a non-technical beginner — can upload a CSV/Excel file, click 1 button to clean missing values, visualize charts, scrape data from website links, auto-train AI models, and download a finished PDF report without writing a single line of code!</p>
+        </div>
+    </div>
+
+    <!-- Chapter 2 -->
+    <div id="ch2" class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-cubes me-2"></i>Chapter 2: Beginner's Guide to Web Technologies Used</h2>
+        <p>Here are the technologies used to build IntelliHub AI and why we chose them:</p>
+
         <div class="row g-3">
             <div class="col-md-6">
-                <div class="tech-box">
-                    <span class="tech-badge mb-2 d-inline-block">BACKEND FRAMEWORK</span>
-                    <h5 class="fw-bold text-white">Django 5.2 & Python 3.11/3.13</h5>
-                    <p class="small text-muted mb-0">Follows the Model-View-Template (MVT) architecture. Django handles security, user session management, routing, database ORM, and URL mapping across modular apps.</p>
+                <div class="concept-box green">
+                    <h5 class="fw-bold text-white"><i class="fa-brands fa-python me-2 text-success"></i>1. Python (3.11 / 3.13)</h5>
+                    <p class="small text-muted mb-0">The primary backend language. Python is the world standard for Data Science and Artificial Intelligence because of its rich libraries like Pandas, NumPy, and Scikit-Learn.</p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="tech-box">
-                    <span class="tech-badge mb-2 d-inline-block">FRONTEND DESIGN SYSTEM</span>
-                    <h5 class="fw-bold text-white">Bootstrap 5 + Dark Glassmorphism UI</h5>
-                    <p class="small text-muted mb-0">Custom CSS design tokens (in <code>static/css/custom.css</code>) providing vibrant gradients, semi-transparent frosted glass panels, responsive grids, and FontAwesome 6 icons.</p>
+                <div class="concept-box purple">
+                    <h5 class="fw-bold text-white"><i class="fa-solid fa-server me-2 text-purple"></i>2. Django 5.2 Framework</h5>
+                    <p class="small text-muted mb-0">A powerful Python web framework. It provides built-in user authentication, security features (CSRF protection, SQL injection defense), database routing, and URL routing out of the box.</p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="tech-box">
-                    <span class="tech-badge mb-2 d-inline-block">DATA ENGINEERING & CLEANING</span>
-                    <h5 class="fw-bold text-white">Pandas, NumPy, Scikit-Learn</h5>
-                    <p class="small text-muted mb-0">Used for fast matrix manipulation, outlier calculation (IQR/Z-Score bounds), median/mode missing value imputation, and categorical Label Encoding.</p>
+                <div class="concept-box yellow">
+                    <h5 class="fw-bold text-white"><i class="fa-brands fa-bootstrap me-2 text-warning"></i>3. Bootstrap 5 + Custom CSS</h5>
+                    <p class="small text-muted mb-0">Used for the user interface (UI). Provides responsive grids for mobile, tablet, and laptop screens, styled with a modern <strong>Dark Glassmorphism</strong> theme (semi-transparent glass cards with glowing cyan highlights).</p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="tech-box">
-                    <span class="tech-badge mb-2 d-inline-block">MACHINE LEARNING (AutoML)</span>
-                    <h5 class="fw-bold text-white">Scikit-Learn Algorithms</h5>
-                    <p class="small text-muted mb-0">Trains Random Forest, Support Vector Machines (SVM), Decision Trees, Logistic Regression, and K-Nearest Neighbors (KNN). Ranks models by R² score, Accuracy, F1-Score, and Confusion Matrix.</p>
+                <div class="concept-box">
+                    <h5 class="fw-bold text-white"><i class="fa-solid fa-table me-2 text-info"></i>4. Pandas & NumPy</h5>
+                    <p class="small text-muted mb-0">Pandas loads CSV and Excel files into memory as DataFrames (tables). NumPy performs fast numerical operations and mathematical array calculations.</p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="tech-box">
-                    <span class="tech-badge mb-2 d-inline-block">WEB SCRAPING ENGINE</span>
-                    <h5 class="fw-bold text-white">Requests + BeautifulSoup4</h5>
-                    <p class="small text-muted mb-0">Fetches HTML content from any public URL, parses <code>&lt;table&gt;</code> elements, cleans extracted cells into Pandas DataFrames, and converts them to datasets.</p>
+                <div class="concept-box purple">
+                    <h5 class="fw-bold text-white"><i class="fa-solid fa-brain me-2 text-purple"></i>5. Scikit-Learn (ML Library)</h5>
+                    <p class="small text-muted mb-0">The core Machine Learning library. Performs data preprocessing (Label Encoding), model training (Random Forest, Decision Tree, Logistic Regression, SVM, KNN), and metrics calculation.</p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="tech-box">
-                    <span class="tech-badge mb-2 d-inline-block">PDF REPORT ENGINE</span>
-                    <h5 class="fw-bold text-white">ReportLab 5.0</h5>
-                    <p class="small text-muted mb-0">Generates executive summary PDF reports dynamically containing dataset metrics, data health scores, cleaning recommendations, and structured formatting.</p>
+                <div class="concept-box green">
+                    <h5 class="fw-bold text-white"><i class="fa-solid fa-file-pdf me-2 text-success"></i>6. ReportLab & BeautifulSoup4</h5>
+                    <p class="small text-muted mb-0">ReportLab dynamically builds PDF executive reports. BeautifulSoup4 scans HTML web pages to extract data tables for the Universal Web Scraper.</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Section 2: Deep-Dive Feature Explanation & Code Mapping -->
-        <h2 class="section-title"><i class="fa-solid fa-code me-2"></i>2. Feature-by-Feature Implementation & Code Locations</h2>
+    <!-- Chapter 3 -->
+    <div id="ch3" class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-sitemap me-2"></i>Chapter 3: How Django Works (MVT Architecture Explained)</h2>
+        <p>If the jury asks <em>"What architecture does your app use?"</em>, you must answer: <strong>"Django's MVT Architecture (Model - View - Template)"</strong>.</p>
         
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="concept-box text-center">
+                    <h4 class="fw-bold text-info"><i class="fa-solid fa-database me-2"></i>M - Model</h4>
+                    <p class="small text-muted mb-0">Defines database tables in Python classes (<span class="file-tag">models.py</span>). Django automatically converts Python objects into SQL database tables!</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="concept-box purple text-center">
+                    <h4 class="fw-bold text-purple"><i class="fa-solid fa-gears me-2"></i>V - View</h4>
+                    <p class="small text-muted mb-0">The core business logic (<span class="file-tag">views.py</span>). It receives HTTP requests from the browser, performs Python processing (cleaning, ML training), and prepares data for the template.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="concept-box green text-center">
+                    <h4 class="fw-bold text-success"><i class="fa-solid fa-desktop me-2"></i>T - Template</h4>
+                    <p class="small text-muted mb-0">The visual HTML webpage (<span class="file-tag">.html</span> files). Displays data passed from the View using template variables like <code>{{ user.username }}</code> and loops <code>{% for item in list %}</code>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 4 -->
+    <div id="ch4" class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-folder-tree me-2"></i>Chapter 4: Project Directory Structure & App Breakdown</h2>
+        <p>Our project follows a clean modular design where each major feature is its own Django App inside the <code>apps/</code> folder:</p>
+
         <div class="table-responsive">
-            <table class="table table-dark table-bordered align-middle">
+            <table class="table table-dark table-striped align-middle">
                 <thead>
-                    <tr class="table-primary text-dark">
-                        <th>Feature</th>
-                        <th>How It Works (Technical Logic)</th>
-                        <th>Libraries / Modules Used</th>
-                        <th>Code Location (Show Jury This File)</th>
+                    <tr class="table-info text-dark">
+                        <th>App Name</th>
+                        <th>Folder Location</th>
+                        <th>Responsibility / What it Does</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="fw-bold text-info">1. Dataset Manager & Versioning</td>
-                        <td>Stores uploaded files (CSV/Excel/JSON). When data is modified or cleaned, it creates a new <code>DatasetVersion</code> record incrementing <code>version_number</code> (v1, v2) so raw files are never overwritten.</td>
-                        <td>Django ORM, Pandas</td>
-                        <td><span class="code-ref">apps/datasets/models.py</span><br><span class="code-ref">apps/datasets/views.py</span></td>
+                        <td class="fw-bold text-info">accounts</td>
+                        <td><span class="file-tag">apps/accounts/</span></td>
+                        <td>User registration, login, logout, profile update, role selection.</td>
                     </tr>
                     <tr>
-                        <td class="fw-bold text-info">2. AI Data Cleaner</td>
-                        <td>Performs 1-click automated cleaning: removes duplicate rows with <code>drop_duplicates()</code>, imputes missing values using column mean/mode, caps outliers using 1.5*IQR bounds, and label encodes text categories.</td>
-                        <td>Pandas, NumPy, Scikit-Learn (LabelEncoder)</td>
-                        <td><span class="code-ref">apps/cleaner/services.py</span><br><span class="code-ref">apps/cleaner/views.py</span></td>
+                        <td class="fw-bold text-info">datasets</td>
+                        <td><span class="file-tag">apps/datasets/</span></td>
+                        <td>Dataset upload, file validation, storage, and <strong>Dataset Versioning (v1, v2)</strong>.</td>
                     </tr>
                     <tr>
-                        <td class="fw-bold text-info">3. Exploratory EDA</td>
-                        <td>Generates summary statistics, missing value distributions, correlation matrices, histogram distributions, and scatter matrix visualizers dynamically based on column types.</td>
-                        <td>Plotly, Pandas, NumPy</td>
-                        <td><span class="code-ref">apps/eda/services.py</span><br><span class="code-ref">apps/eda/views.py</span></td>
+                        <td class="fw-bold text-info">cleaner</td>
+                        <td><span class="file-tag">apps/cleaner/</span></td>
+                        <td>Automated 1-click AI data cleaning (IQR capping, median imputation, duplicate removal, download).</td>
                     </tr>
                     <tr>
-                        <td class="fw-bold text-info">4. AutoML Studio</td>
-                        <td>Takes dataset & target variable. Automatically splits data into 80% train / 20% test, fits multiple ML models, calculates evaluation metrics (R², MSE, Accuracy, F1), and displays a benchmark leaderboard.</td>
-                        <td>Scikit-Learn (RandomForest, SVM, DecisionTree, KNN)</td>
-                        <td><span class="code-ref">apps/ml_studio/services.py</span><br><span class="code-ref">apps/ml_studio/views.py</span></td>
+                        <td class="fw-bold text-info">eda</td>
+                        <td><span class="file-tag">apps/eda/</span></td>
+                        <td>Exploratory Data Analysis — correlation heatmaps, missing value charts, distribution plots.</td>
                     </tr>
                     <tr>
-                        <td class="fw-bold text-info">5. Universal Web Scraper</td>
-                        <td>Extracts data from any website URL. Sends HTTP GET request, searches HTML for <code>&lt;table&gt;</code> nodes, parses headers and rows into Pandas DataFrame, and renders data in portrait wrapped mode.</td>
-                        <td>Requests, BeautifulSoup4, Pandas</td>
-                        <td><span class="code-ref">apps/scraper/services.py</span><br><span class="code-ref">apps/scraper/views.py</span></td>
+                        <td class="fw-bold text-info">dashboard</td>
+                        <td><span class="file-tag">apps/dashboard/</span></td>
+                        <td>Main user dashboard overview, landing page, metric cards, first-time user welcome card.</td>
                     </tr>
                     <tr>
-                        <td class="fw-bold text-info">6. AI Analyst Assistant</td>
-                        <td>Conversational NLP interface allowing users to query dataset metrics (row count, target correlation, column types) in natural language. Uses context synthesis over active datasets.</td>
-                        <td>Custom NLP Rule Engine, Django Views</td>
-                        <td><span class="code-ref">apps/assistant/services.py</span><br><span class="code-ref">apps/assistant/views.py</span></td>
+                        <td class="fw-bold text-info">ml_studio</td>
+                        <td><span class="file-tag">apps/ml_studio/</span></td>
+                        <td>AutoML engine — trains Classification and Regression models, calculates R²/Accuracy metrics.</td>
                     </tr>
                     <tr>
-                        <td class="fw-bold text-info">7. Executive PDF Reports</td>
-                        <td>Compiles dataset health scores, data cleaning transformations, and ML model performance metrics into an executive-ready downloadable PDF report.</td>
-                        <td>ReportLab, BytesIO, Django FileResponse</td>
-                        <td><span class="code-ref">apps/reports/services.py</span><br><span class="code-ref">apps/reports/views.py</span></td>
+                        <td class="fw-bold text-info">scraper</td>
+                        <td><span class="file-tag">apps/scraper/</span></td>
+                        <td>Universal Web Scraper — fetches HTML tables from web links and converts them to datasets.</td>
                     </tr>
                     <tr>
-                        <td class="fw-bold text-info">8. User Auth & Security</td>
-                        <td>Custom User model inheriting from <code>AbstractUser</code> with custom roles (ADMIN, DATA_SCIENTIST, RESEARCHER). Sessions managed via signed cookies/DB for seamless serverless deployment.</td>
-                        <td>Django Auth, Custom User Model</td>
-                        <td><span class="code-ref">apps/accounts/models.py</span><br><span class="code-ref">intellihub/settings.py</span></td>
+                        <td class="fw-bold text-info">assistant</td>
+                        <td><span class="file-tag">apps/assistant/</span></td>
+                        <td>AI Analyst Assistant — natural language conversational assistant to query datasets.</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold text-info">reports</td>
+                        <td><span class="file-tag">apps/reports/</span></td>
+                        <td>AI Report Generator — builds downloadable PDF executive reports using ReportLab.</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold text-info">admin_panel</td>
+                        <td><span class="file-tag">apps/admin_panel/</span></td>
+                        <td>SaaS Admin Panel — allows admin users to manage users, ban users, and view platform metrics.</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
-        <!-- Section 3: Jury Viva Questions & Answers Bank -->
-        <h2 class="section-title"><i class="fa-solid fa-comments-question me-2"></i>3. Expected Jury Viva Questions & Exact Answers</h2>
-
-        <div class="qa-card">
-            <div class="question">Q1: Which architecture pattern did you follow for building this web application?</div>
-            <div class="answer"><strong>Answer:</strong> We used Django's <strong>MVT (Model-View-Template) architecture</strong>. The <em>Model</em> layer handles data models and database operations via Django ORM. The <em>View</em> layer contains business logic and Python processing. The <em>Template</em> layer uses HTML5, Bootstrap 5, and Jinja-like Django template language for rendering UI components.</div>
-        </div>
-
-        <div class="qa-card">
-            <div class="question">Q2: How does the Automated AI Cleaning functionality work under the hood?</div>
-            <div class="answer"><strong>Answer:</strong> Our cleaning engine is implemented in <span class="code-ref">apps/cleaner/services.py</span>. It performs four main operations:<br>
-            1. <strong>Duplicate Removal:</strong> Calls <code>df.drop_duplicates()</code>.<br>
-            2. <strong>Missing Value Imputation:</strong> Fills numerical missing values using column median/mean (<code>df[col].fillna()</code>) and categorical missing values using mode.<br>
-            3. <strong>Outlier Handling:</strong> Calculates Interquartile Range (<code>IQR = Q3 - Q1</code>) and caps extreme values outside <code>[Q1 - 1.5*IQR, Q3 + 1.5*IQR]</code>.<br>
-            4. <strong>Categorical Encoding:</strong> Uses Scikit-Learn's <code>LabelEncoder</code> to convert text categories into numerical values for ML training.</div>
-        </div>
-
-        <div class="qa-card">
-            <div class="question">Q3: How do you maintain dataset history when a user cleans or modifies a file?</div>
-            <div class="answer"><strong>Answer:</strong> We implemented <strong>Immutable Dataset Versioning</strong> using two Django models in <span class="code-ref">apps/datasets/models.py</span>: <code>Dataset</code> and <code>DatasetVersion</code>. When a raw dataset is uploaded, it gets saved as <code>version_number = 1</code>. When automated cleaning or filtering is performed, a new <code>DatasetVersion</code> object (v2, v3) is created and linked to the main dataset. The original raw file is never overwritten.</div>
-        </div>
-
-        <div class="qa-card">
-            <div class="question">Q4: What machine learning algorithms are supported in your AutoML Studio, and how are they evaluated?</div>
-            <div class="answer"><strong>Answer:</strong> Our AutoML Studio (<span class="code-ref">apps/ml_studio/services.py</span>) supports both Regression and Classification:<br>
-            • <strong>Classification:</strong> Random Forest Classifier, Decision Tree, Logistic Regression, K-Nearest Neighbors (KNN), and Support Vector Classification (SVC). Evaluated using <strong>Accuracy, Precision, Recall, and F1-Score</strong>.<br>
-            • <strong>Regression:</strong> Random Forest Regressor, Linear Regression, Decision Tree Regressor. Evaluated using <strong>R² Score (Coefficient of Determination) and Mean Squared Error (MSE)</strong>.</div>
-        </div>
-
-        <div class="qa-card">
-            <div class="question">Q5: How does the Web Scraper extract tables from external websites?</div>
-            <div class="answer"><strong>Answer:</strong> The Web Scraper (<span class="code-ref">apps/scraper/services.py</span>) takes a URL, sends an HTTP request using Python's <code>requests</code> library, and parses the HTML DOM tree using <code>BeautifulSoup4</code>. It finds all <code>&lt;table&gt;</code> tags, extracts header row <code>&lt;th&gt;</code> and content rows <code>&lt;td&gt;</code>, constructs a Pandas DataFrame, and allows the user to save it directly into Dataset Manager with 1-click.</div>
-        </div>
-
-        <div class="qa-card">
-            <div class="question">Q6: How did you deploy the application live, and how do you manage database state on Vercel?</div>
-            <div class="answer"><strong>Answer:</strong> We deployed IntelliHub AI on <strong>Vercel's Serverless Platform</strong> using WSGI adapter configuration (<span class="code-ref">intellihub/wsgi.py</span>). Because serverless environments use read-only file systems, we configure SQLite database to run from the <code>/tmp</code> directory, and use <strong>signed cookie session backend</strong> (<code>django.contrib.sessions.backends.signed_cookies</code>) so user authentication state is securely maintained in browser cookies across serverless executions.</div>
-        </div>
-
-        <div class="qa-card">
-            <div class="question">Q7: What security features are built into your platform?</div>
-            <div class="answer"><strong>Answer:</strong><br>
-            1. <strong>Password Hashing:</strong> Uses Django's default PBKDF2 algorithm with SHA-256 hash.<br>
-            2. <strong>CSRF Protection:</strong> All POST forms include <code>{% csrf_token %}</code> to prevent Cross-Site Request Forgery.<br>
-            3. <strong>Role-Based Access Control (RBAC):</strong> Custom user roles (ADMIN, DATA_SCIENTIST, RESEARCHER, STUDENT, COMPANY) control permissions across admin panel and studio tools.<br>
-            4. <strong>Session Security:</strong> Configured <code>SESSION_COOKIE_HTTPONLY = True</code> and <code>SESSION_COOKIE_SAMESITE = 'Lax'</code> to protect against XSS and session hijacking.</div>
-        </div>
-
-        <div class="qa-card">
-            <div class="question">Q8: What happens if a first-time user registers and logs into the platform?</div>
-            <div class="answer"><strong>Answer:</strong> We designed a <strong>First-Time User Onboarding Flow</strong> in <span class="code-ref">apps/dashboard/views.py</span>. When a user has 0 uploaded datasets (<code>user_datasets == 0</code>), a prominent welcome card automatically prompts them to upload their first dataset or scrape data from the web before proceeding to EDA or AutoML.</div>
-        </div>
-
     </div>
+
+    <!-- Chapter 5 -->
+    <div id="ch5" class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-laptop-code me-2"></i>Chapter 5: Detailed Page-by-Page & Functionality Walkthrough</h2>
+
+        <!-- 5.1 Account Auth -->
+        <h3 class="sub-title"><span class="step-number">1</span>Authentication & User Management (Accounts App)</h3>
+        <p><strong>URL Routes:</strong> <code>/accounts/login/</code>, <code>/accounts/register/</code>, <code>/accounts/profile/</code></p>
+        <div class="concept-box">
+            <ul>
+                <li><strong>Registration Page:</strong> User enters Username, Email, Password, and selects a Role (Data Scientist, Researcher, Student, Company). Handled by <code>UserRegistrationForm</code> in <span class="file-tag">apps/accounts/forms.py</span>.</li>
+                <li><strong>Login Page:</strong> User enters credentials. If valid, Django calls <code>login(request, user)</code> and creates a session. If invalid, shows error <em>"Invalid username/email or password"</em>.</li>
+                <li><strong>Session Handling:</strong> Configured in <span class="file-tag">intellihub/settings.py</span> using <code>SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'</code> which securely stores encrypted session tokens inside browser cookies for Vercel serverless persistence.</li>
+                <li><strong>Profile & Settings Page:</strong> Allows user to update Bio, Education, Company, GitHub, LinkedIn, and upload Profile Photo. Integrated directly into the sidebar navigation.</li>
+            </ul>
+        </div>
+
+        <!-- 5.2 Dashboard -->
+        <h3 class="sub-title"><span class="step-number">2</span>Main Dashboard Overview (Dashboard App)</h3>
+        <p><strong>URL Route:</strong> <code>/dashboard/</code> | <strong>Template:</strong> <span class="file-tag">templates/dashboard/dashboard.html</span></p>
+        <div class="concept-box purple">
+            <ul>
+                <li><strong>First-Time User Prompt:</strong> Controlled by <code>is_first_time = (user_datasets == 0)</code> in <span class="file-tag">apps/dashboard/views.py</span>. When a user has 0 datasets, a large glowing welcome card prompts them: <em>"Welcome to IntelliHub AI! Upload your first dataset to get started."</em></li>
+                <li><strong>KPI Metric Cards:</strong> Displays total user datasets, active ML models trained, total prediction runs, and average accuracy score.</li>
+                <li><strong>Recent Activity Tables:</strong> Shows top 5 recently uploaded datasets and trained models with quick actions.</li>
+            </ul>
+        </div>
+
+        <!-- 5.3 Dataset Manager -->
+        <h3 class="sub-title"><span class="step-number">3</span>Dataset Management & Versioning (Datasets App)</h3>
+        <p><strong>URL Route:</strong> <code>/datasets/</code> | <strong>Template:</strong> <span class="file-tag">templates/datasets/dataset_list.html</span></p>
+        <div class="concept-box green">
+            <ul>
+                <li><strong>Uploading:</strong> User uploads CSV or Excel file. The file is validated, saved to media storage, and initial version <code>v1</code> is created.</li>
+                <li><strong>Version Control System:</strong> Models defined in <span class="file-tag">apps/datasets/models.py</span>:
+                    <br>• <code>Dataset</code>: Holds metadata (name, description, owner, creation date).
+                    <br>• <code>DatasetVersion</code>: Stores the actual file path, <code>version_number</code>, row count, column count, memory usage, duplicate count, missing values count.
+                </li>
+                <li><strong>Immutable History:</strong> When data is cleaned or transformed, a new <code>DatasetVersion</code> (e.g., v2) is appended. The raw file v1 is preserved!</li>
+            </ul>
+        </div>
+
+        <!-- 5.4 AI Data Cleaner -->
+        <h3 class="sub-title"><span class="step-number">4</span>Automated AI Data Cleaner (Cleaner App)</h3>
+        <p><strong>URL Route:</strong> <code>/cleaner/</code> | <strong>Template:</strong> <span class="file-tag">templates/cleaner/cleaner_home.html</span></p>
+        <div class="concept-box yellow">
+            <ul>
+                <li><strong>Health Status Score:</strong> Calculates missing value percentage and duplicate count. Displays status like <em>"Needs Attention"</em> or <em>"Optimal Clean"</em>.</li>
+                <li><strong>1-Click Execute Auto Clean:</strong> Triggered via <span class="file-tag">apps/cleaner/services.py</span> function <code>perform_auto_clean()</code>:
+                    <br>1. Removes exact duplicate rows with <code>df.drop_duplicates()</code>.
+                    <br>2. Imputes missing numerical values with column median/mean.
+                    <br>3. Caps numerical outliers outside 1.5*IQR bounds.
+                    <br>4. Encodes text categories into numbers using Scikit-Learn <code>LabelEncoder</code>.
+                </li>
+                <li><strong>Download Cleaned Dataset Button:</strong> A green button appears after auto clean execution allowing the user to instantly download the cleaned CSV file version!</li>
+            </ul>
+        </div>
+
+        <!-- 5.5 Exploratory EDA -->
+        <h3 class="sub-title"><span class="step-number">5</span>Exploratory Data Analysis (EDA App)</h3>
+        <p><strong>URL Route:</strong> <code>/eda/</code> | <strong>Template:</strong> <span class="file-tag">templates/eda/eda_home.html</span></p>
+        <div class="concept-box">
+            <ul>
+                <li>Calculates overview statistics: Total Rows, Total Columns, Numerical Column Count, Categorical Column Count.</li>
+                <li>Generates interactive Plotly graphs: Distribution histograms, Correlation Heatmaps, Missing Value bar charts, and Data Preview tables.</li>
+            </ul>
+        </div>
+
+        <!-- 5.6 AutoML Studio -->
+        <h3 class="sub-title"><span class="step-number">6</span>AutoML & Machine Learning Studio (ML Studio App)</h3>
+        <p><strong>URL Route:</strong> <code>/ml-studio/</code> | <strong>Template:</strong> <span class="file-tag">templates/ml_studio/ml_home.html</span></p>
+        <div class="concept-box purple">
+            <ul>
+                <li><strong>Target Variable Selection:</strong> User selects which column to predict (e.g., "Price" or "Churn").</li>
+                <li><strong>Automatic Problem Type Detection:</strong> If target column is numeric with many unique values → <em>Regression</em>. If text/categorical or few unique integers → <em>Classification</em>.</li>
+                <li><strong>Model Benchmarking:</strong> Fits multiple models simultaneously using <span class="file-tag">apps/ml_studio/services.py</span>:
+                    <br>• Random Forest (Classifier / Regressor)
+                    <br>• Support Vector Machines (SVC / SVR)
+                    <br>• Decision Trees
+                    <br>• Logistic Regression / Linear Regression
+                    <br>• K-Nearest Neighbors (KNN)
+                </li>
+                <li><strong>Evaluation Metrics:</strong> Displays leaderboard ranked by Accuracy / R² Score, along with Precision, Recall, F1-Score, and Confusion Matrix.</li>
+            </ul>
+        </div>
+
+        <!-- 5.7 Universal Web Scraper -->
+        <h3 class="sub-title"><span class="step-number">7</span>Universal Web Scraper (Scraper App)</h3>
+        <p><strong>URL Route:</strong> <code>/scraper/</code> | <strong>Template:</strong> <span class="file-tag">templates/scraper/scraper.html</span></p>
+        <div class="concept-box green">
+            <ul>
+                <li><strong>URL Input:</strong> User enters any website URL containing tabular data (e.g. Wikipedia tables, financial web tables).</li>
+                <li><strong>Parsing Logic:</strong> In <span class="file-tag">apps/scraper/services.py</span>:
+                    <br>1. Sends HTTP request: <code>requests.get(url, headers=headers)</code>.
+                    <br>2. Parses HTML DOM with BeautifulSoup: <code>soup.find_all('table')</code>.
+                    <br>3. Extracts headers and rows into Pandas DataFrame.
+                </li>
+                <li><strong>Portrait Wrapped Mode:</strong> The extracted data table uses <code>word-break: break-word; white-space: normal;</code> so text wraps nicely on mobile and vertical screens without breaking layout. Displays 25 preview rows!</li>
+                <li><strong>1-Click Save as Dataset:</strong> User can click <em>"Save Scraped Table to Dataset Manager"</em> to immediately store it for cleaning and AutoML training.</li>
+            </ul>
+        </div>
+
+        <!-- 5.8 AI Analyst Assistant & Reports -->
+        <h3 class="sub-title"><span class="step-number">8</span>AI Analyst Assistant & Report Generator</h3>
+        <p><strong>URL Routes:</strong> <code>/assistant/</code>, <code>/reports/</code></p>
+        <div class="concept-box yellow">
+            <ul>
+                <li><strong>AI Analyst Assistant:</strong> A chat interface where users can ask questions about active datasets in plain English (e.g., <em>"What is the average price?"</em> or <em>"How many missing values?"</em>).</li>
+                <li><strong>AI PDF Report Generator:</strong> Uses ReportLab to dynamically build a styled PDF report summarizing dataset health scores, cleaning logs, and ML model benchmarking tables for executive presentation.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Chapter 6 -->
+    <div id="ch6" class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-calculator me-2"></i>Chapter 6: Deep Technical Algorithms & Math Logic</h2>
+        <p>If the jury asks <em>"What mathematical formulas or algorithms did you use?"</em>, explain these exact 4 concepts:</p>
+
+        <div class="qa-card">
+            <div class="qa-q">1. Outlier Detection using Interquartile Range (IQR)</div>
+            <div class="qa-a">
+                <strong>Formula:</strong><br>
+                <code>Q1 = 25th Percentile</code> | <code>Q3 = 75th Percentile</code><br>
+                <code>IQR = Q3 - Q1</code><br>
+                <code>Lower Bound = Q1 - 1.5 * IQR</code><br>
+                <code>Upper Bound = Q3 + 1.5 * IQR</code><br><br>
+                <strong>Logic:</strong> Any data point less than Lower Bound or greater than Upper Bound is an outlier. We cap those values to the boundary numbers so extreme values don't distort ML training.
+            </div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">2. Missing Value Imputation</div>
+            <div class="qa-a">
+                <strong>Logic:</strong><br>
+                • For Numerical Columns: Replace missing <code>NaN</code> values with column <strong>Median</strong> (or Mean) using <code>df[col].fillna(df[col].median())</code>.<br>
+                • For Categorical Columns: Replace missing values with column <strong>Mode</strong> (most frequent value).
+            </div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">3. Categorical Label Encoding</div>
+            <div class="qa-a">
+                <strong>Logic:</strong> Machine Learning models cannot understand string words like <code>"Red"</code>, <code>"Blue"</code>, <code>"Green"</code>. We use Scikit-Learn's <code>LabelEncoder()</code> to convert categories into integers: <code>Red = 0</code>, <code>Blue = 1</code>, <code>Green = 2</code>.
+            </div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">4. ML Evaluation Metrics ($R^2$ Score & Accuracy)</div>
+            <div class="qa-a">
+                <strong>Classification Accuracy:</strong> $\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$<br><br>
+                <strong>Regression $R^2$ Score (Coefficient of Determination):</strong> Measures how well the model predicts continuous numerical values relative to the mean. $R^2 = 1.0$ means 100% perfect prediction!
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 7 -->
+    <div id="ch7" class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Chapter 7: How Deployment Works (Vercel & SQLite)</h2>
+        <div class="concept-box green">
+            <p><strong>How the site runs live at <code>https://intellihub-ai-portal.vercel.app/</code>:</strong></p>
+            <ol>
+                <li><strong>Serverless Architecture:</strong> Hosted on Vercel using Python 3.12 serverless runtime via <span class="file-tag">intellihub/wsgi.py</span>.</li>
+                <li><strong>Database in <code>/tmp</code>:</strong> On Vercel, the main file system is read-only. On container startup, our SQLite database file <code>db.sqlite3</code> is loaded, allowing superfast database queries.</li>
+                <li><strong>Session Handling:</strong> Configured <code>SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'</code>. Session data is encrypted and stored in user browser cookies, ensuring user logins persist smoothly!</li>
+                <li><strong>Static Assets:</strong> Handled using <strong>WhiteNoise 6.12</strong> middleware in <span class="file-tag">intellihub/settings.py</span> to serve CSS, JavaScript, and fonts directly from memory with gzip compression.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Chapter 8 -->
+    <div id="ch8" class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-spell-check me-2"></i>Chapter 8: Glossary of Technical Terms (Beginner Dictionary)</h2>
+        <div class="table-responsive">
+            <table class="table table-dark table-bordered">
+                <thead>
+                    <tr class="table-warning text-dark">
+                        <th>Term</th>
+                        <th>Simple Beginner Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="fw-bold text-info">DataFrame</td><td>A 2-dimensional table of data with rows and columns in Pandas (like a spreadsheet in Python).</td></tr>
+                    <tr><td class="fw-bold text-info">Imputation</td><td>The process of filling in blank / missing values in a dataset with statistical estimates (mean, median, mode).</td></tr>
+                    <tr><td class="fw-bold text-info">Outlier</td><td>An extreme value in data that differs significantly from other observations (e.g. house price of $1,000,000 when rest are $50,000).</td></tr>
+                    <tr><td class="fw-bold text-info">AutoML</td><td>Automated Machine Learning — automatically trying multiple ML algorithms and picking the best one without manual tuning.</td></tr>
+                    <tr><td class="fw-bold text-info">CSRF Token</td><td>Cross-Site Request Forgery security token — a secret code generated by Django to ensure forms are submitted by real users, not hackers.</td></tr>
+                    <tr><td class="fw-bold text-info">ORM</td><td>Object-Relational Mapper — allows writing Python code to interact with databases instead of writing SQL queries manually.</td></tr>
+                    <tr><td class="fw-bold text-info">MVT</td><td>Model-View-Template — Django's architecture pattern separating database logic, business logic, and UI design.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Chapter 9 -->
+    <div id="ch9" class="chapter-card">
+        <h2 class="chapter-title"><i class="fa-solid fa-clipboard-question me-2"></i>Chapter 9: 25 Master Jury Questions & Exact Answers</h2>
+
+        <div class="qa-card">
+            <div class="qa-q">Q1: What is the main aim of IntelliHub AI?</div>
+            <div class="qa-a"><strong>Answer:</strong> To provide an all-in-one, zero-code enterprise web platform that combines data ingestion, web scraping, automated cleaning, exploratory analysis, AutoML model training, and executive PDF reporting under a single unified application.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q2: Which framework and language did you use for the backend?</div>
+            <div class="qa-a"><strong>Answer:</strong> We used <strong>Python (3.11/3.13)</strong> and the <strong>Django 5.2</strong> web framework.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q3: How do you handle missing data in the dataset?</div>
+            <div class="qa-a"><strong>Answer:</strong> In <span class="file-tag">apps/cleaner/services.py</span>, we impute numerical missing values using column median/mean, and categorical missing values using the statistical mode (most frequent item).</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q4: How does your dataset versioning feature work?</div>
+            <div class="qa-a"><strong>Answer:</strong> Using two Django models: <code>Dataset</code> and <code>DatasetVersion</code>. Every time a dataset is modified or cleaned, a new <code>DatasetVersion</code> record (v1, v2) is saved. The original raw file is never overwritten.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q5: How does the web scraper work?</div>
+            <div class="qa-a"><strong>Answer:</strong> It sends an HTTP GET request to the user's provided URL using <code>requests</code>, parses HTML tables using <code>BeautifulSoup4</code>, converts them into Pandas DataFrames, and lets users save them to Dataset Manager in 1-click.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q6: What ML models are included in your AutoML engine?</div>
+            <div class="qa-a"><strong>Answer:</strong> Random Forest, Support Vector Machines (SVM), Decision Trees, Logistic Regression, Linear Regression, and K-Nearest Neighbors (KNN) from Scikit-Learn.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q7: How do you evaluate machine learning models?</div>
+            <div class="qa-a"><strong>Answer:</strong> For classification, we use Accuracy, Precision, Recall, F1-Score, and Confusion Matrix. For regression, we use R² Score and Mean Squared Error (MSE).</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q8: How do you handle non-numeric categorical text before training ML models?</div>
+            <div class="qa-a"><strong>Answer:</strong> We use Scikit-Learn's <code>LabelEncoder</code> to map string text categories into numerical integers (e.g. 0, 1, 2).</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q9: What library is used to generate downloadable PDF reports?</div>
+            <div class="qa-a"><strong>Answer:</strong> <code>ReportLab 5.0</code> in Python.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q10: Where is your project hosted live?</div>
+            <div class="qa-a"><strong>Answer:</strong> Deployed live on <strong>Vercel</strong> at <code>https://intellihub-ai-portal.vercel.app/</code>.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q11: How do you secure user authentication and passwords?</div>
+            <div class="qa-a"><strong>Answer:</strong> Passwords are hashed using PBKDF2 with SHA-256 algorithm. Form submissions use CSRF protection tokens, and session cookies use HTTPOnly and SameSite=Lax flags.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q12: How is the UI designed?</div>
+            <div class="qa-a"><strong>Answer:</strong> Responsive Bootstrap 5 layout with a custom Dark Glassmorphism design system using semi-transparent frosted glass cards and cyan accents.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q13: Can a first-time user use the app easily?</div>
+            <div class="qa-a"><strong>Answer:</strong> Yes! We implemented an automated onboarding flow. If a user has 0 datasets, a large welcome card guides them to upload their first file or scrape web data before using analytics.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q14: What happens if a dataset has duplicate rows?</div>
+            <div class="qa-a"><strong>Answer:</strong> The AI Data Cleaner detects duplicates and removes them using Pandas <code>df.drop_duplicates()</code>.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q15: How do you detect outliers in numeric data?</div>
+            <div class="qa-a"><strong>Answer:</strong> Using the Interquartile Range (IQR) method: <code>[Q1 - 1.5*IQR, Q3 + 1.5*IQR]</code>.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q16: What is the purpose of the AI Analyst Assistant?</div>
+            <div class="qa-a"><strong>Answer:</strong> It allows users to ask questions about loaded dataset statistics in plain English without writing database queries.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q17: How is user role management structured?</div>
+            <div class="qa-a"><strong>Answer:</strong> Custom Django User model extending <code>AbstractUser</code> with roles: ADMIN, DATA_SCIENTIST, RESEARCHER, STUDENT, COMPANY.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q18: What is the difference between Regression and Classification in your AutoML?</div>
+            <div class="qa-a"><strong>Answer:</strong> Regression predicts continuous numerical numbers (e.g. house price). Classification predicts discrete categories (e.g. Yes/No, Spam/Not Spam).</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q19: How are static files (CSS, JS) served on Vercel?</div>
+            <div class="qa-a"><strong>Answer:</strong> Served using <strong>WhiteNoise</strong> middleware which compresses and caches static assets efficiently.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q20: Can users download cleaned data?</div>
+            <div class="qa-a"><strong>Answer:</strong> Yes, a green "Download Cleaned Dataset" button appears in the AI Data Cleaner as soon as auto-cleaning is executed.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q21: How do you prevent layout breakage in the web scraper table view?</div>
+            <div class="qa-a"><strong>Answer:</strong> We configured table cell wrapping with CSS <code>word-break: break-word; white-space: normal;</code> so text wraps properly on portrait and mobile displays.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q22: Why did you use Django instead of Flask?</div>
+            <div class="qa-a"><strong>Answer:</strong> Django is an "batteries-included" enterprise framework with built-in ORM, admin portal, user authentication, and security middleware, making it more robust for scalable production apps.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q23: What database engine is used in production?</div>
+            <div class="qa-a"><strong>Answer:</strong> SQLite engine optimized for serverless deployment with sessions managed via signed cookie backend.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q24: What future enhancements are planned for IntelliHub AI?</div>
+            <div class="qa-a"><strong>Answer:</strong> Direct integration with OpenAI/Claude LLM APIs, 1-click SQL database connectors (PostgreSQL/Snowflake), and Apache Kafka real-time data streaming.</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q25: Who built this project?</div>
+            <div class="qa-a"><strong>Answer:</strong> Suraj Vaghela, Nandish Patel, and Himanshu Namsa from LJ University.</div>
+        </div>
+    </div>
+
 </div>
 
 </body>
