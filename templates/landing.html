@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>IntelliHub AI - All-in-One AI & Data Analytics SaaS Platform</title>
-    <meta name="description" content="IntelliHub AI is an enterprise AI and data analytics platform for automated data cleaning, exploratory EDA, AutoML model training, deep learning, and executive PDF reporting.">
+    <meta name="description" content="IntelliHub AI is an enterprise AI and data analytics platform for automated data cleaning, exploratory EDA, AutoML model training, web scraping, and executive PDF reporting.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,7 +111,7 @@
                     <!-- Pill Badge -->
                     <div class="d-inline-flex align-items-center gap-2 px-3 py-1 mb-4 rounded-pill glass-pill border-cyan">
                         <span class="badge bg-info text-dark rounded-pill">v2.0 ACTIVE</span>
-                        <span class="small fw-semibold text-cyan">Next-Gen AutoML & Deep Learning Engine</span>
+                        <span class="small fw-semibold text-cyan">Next-Gen AutoML & Data Analytics Engine</span>
                     </div>
 
                     <!-- Main Headline -->
@@ -121,7 +121,7 @@
                     
                     <!-- Sub-Headline -->
                     <p class="lead text-muted mb-4 fs-5 hero-subtitle">
-                        An all-in-one data science platform. Clean messy datasets, explore automated EDA visualizers, build AutoML & deep learning models, and synthesize executive PDF reports in seconds.
+                        An all-in-one data science platform. Clean messy datasets, explore automated EDA visualizers, build AutoML models, scrape web data, and synthesize executive PDF reports in seconds.
                     </p>
 
                     <!-- Primary CTAs -->
@@ -266,15 +266,15 @@
                     </div>
                 </div>
 
-                <!-- Module 4: AutoML & Deep Learning -->
+                <!-- Module 4: AutoML & ML Studio -->
                 <div class="col-md-6 col-lg-4">
                     <div class="module-card glass-card p-4 h-100 d-flex flex-column justify-content-between">
                         <div>
                             <div class="module-icon-box bg-gradient-amber mb-3">
                                 <i class="fa-solid fa-robot"></i>
                             </div>
-                            <h4 class="fw-bold text-white mb-2">AutoML & Neural Studio</h4>
-                            <p class="text-muted small">Train Random Forest, SVM, XGBoost, and multi-layer neural networks with live metric tracking and accuracy leaderboards.</p>
+                            <h4 class="fw-bold text-white mb-2">AutoML & ML Studio</h4>
+                            <p class="text-muted small">Train Random Forest, SVM, kNN, Decision Trees, and more with live metric tracking and accuracy leaderboards.</p>
                         </div>
                         <div class="pt-3 border-top border-dark d-flex justify-content-between align-items-center">
                             <span class="badge bg-secondary font-monospace">Machine Learning</span>
@@ -337,9 +337,7 @@
                 <button class="btn demo-tab-btn" data-tab="tab-automl">
                     <i class="fa-solid fa-robot me-2 text-warning"></i> AutoML Leaderboard
                 </button>
-                <button class="btn demo-tab-btn" data-tab="tab-deeplearning">
-                    <i class="fa-solid fa-network-wired me-2 text-danger"></i> Deep Learning Studio
-                </button>
+
                 <button class="btn demo-tab-btn" data-tab="tab-assistant">
                     <i class="fa-solid fa-comments me-2 text-purple"></i> AI Analyst Assistant
                 </button>
@@ -413,29 +411,7 @@
                     </div>
                 </div>
 
-                <!-- Tab 3: Deep Learning Studio -->
-                <div id="tab-deeplearning" class="demo-tab-content d-none">
-                    <div class="row align-items-center g-4">
-                        <div class="col-lg-6">
-                            <h3 class="fw-bold text-white mb-3">Custom Neural Network Architecture</h3>
-                            <p class="text-muted">Visually configure dense neural net hidden layers, activation functions (ReLU, Sigmoid), and optimizers (Adam, SGD).</p>
-                            <ul class="list-unstyled text-light gap-2 d-grid">
-                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Custom Layer Stacking (Input → Hidden → Output)</li>
-                                <li><i class="fa-solid fa-circle-check text-success me-2"></i> Live Loss & Accuracy Curve Graphs</li>
-                            </ul>
-                            <a href="{% url 'dl_studio:home' %}" class="btn btn-gradient-primary mt-3">Open Neural Studio</a>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="p-3 bg-darker rounded-3 border border-dark text-start">
-                                <div class="p-3 bg-black rounded text-cyan font-monospace small">
-                                    Epoch 50/50 [==============================] - 2s 40ms/step<br>
-                                    loss: 0.0412 - accuracy: 0.9840 - val_loss: 0.0521 - val_accuracy: 0.9780<br>
-                                    <span class="text-success">✔ Neural Network convergence reached! Model saved.</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Tab 4: AI Analyst Assistant -->
                 <div id="tab-assistant" class="demo-tab-content d-none">
@@ -556,7 +532,7 @@
                         </div>
                         <span class="fw-bold brand-font text-white fs-4">IntelliHub AI</span>
                     </a>
-                    <p class="text-muted small mb-0">Next-generation AI and data analytics SaaS platform for data cleaning, EDA, AutoML, deep learning, web scraping, and executive reports.</p>
+                    <p class="text-muted small mb-0">Next-generation AI and data analytics SaaS platform for data cleaning, EDA, AutoML, web scraping, and executive reports.</p>
                 </div>
 
                 <div class="col-6 col-md-3 col-lg-3">
