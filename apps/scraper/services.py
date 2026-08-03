@@ -175,7 +175,7 @@ def _format_extracted_df(df, title, index):
     # Clean data values for JSON/HTML rendering
     df_clean = df.fillna("N/A").astype(str)
     
-    records = df_clean.head(10).to_dict(orient='records')
+    records = df_clean.head(25).to_dict(orient='records')
     
     return {
         'index': index,

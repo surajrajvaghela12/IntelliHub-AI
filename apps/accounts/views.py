@@ -48,6 +48,8 @@ def login_view(request):
             messages.success(request, f"Welcome back, {user.username}!")
             next_url = request.GET.get('next', 'dashboard:home')
             return redirect(next_url)
+        else:
+            messages.error(request, "Invalid username/email or password. Please check your credentials.")
     else:
         form = UserLoginForm(request=request)
     return render(request, 'accounts/login.html', {'form': form})

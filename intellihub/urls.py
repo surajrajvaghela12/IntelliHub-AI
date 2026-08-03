@@ -14,7 +14,6 @@ urlpatterns = [
     path('eda/', include('apps.eda.urls')),
     path('dashboard/', include('apps.dashboard.urls')),
     path('ml-studio/', include('apps.ml_studio.urls')),
-    path('dl-studio/', include('apps.dl_studio.urls')),
     path('assistant/', include('apps.assistant.urls')),
     path('scraper/', include('apps.scraper.urls')),
     path('reports/', include('apps.reports.urls')),

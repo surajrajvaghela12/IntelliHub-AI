@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
 
-{% block title %}Interactive Dashboard - IntelliHub AI{% endblock %}
-{% block page_title %}Power BI Style Interactive SaaS Dashboard{% endblock %}
+{% block title %}Dashboard - IntelliHub AI{% endblock %}
+{% block page_title %}Dashboard Overview{% endblock %}
 
 {% block content %}
+
+{% if is_first_time %}
+<!-- First-Time User Welcome Card -->
+<div class="glass-card p-4 p-md-5 mb-4 text-center position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.25) 0%, rgba(99, 102, 241, 0.2) 50%, rgba(192, 132, 252, 0.15) 100%); border: 1px solid rgba(56, 189, 248, 0.4);">
+    <div class="mb-3">
+        <i class="fa-solid fa-rocket" style="font-size: 3.5rem; color: #38bdf8; text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);"></i>
+    </div>
+    <h2 class="fw-bold mb-2" style="font-family: 'Outfit', sans-serif;">Welcome to IntelliHub AI! 🎉</h2>
+    <p class="text-muted mb-1" style="font-size: 1.1rem;">Get started by uploading your first dataset to unlock the full power of the platform.</p>
+    <p class="text-muted small mb-4">Upload a CSV, Excel, or JSON file to begin cleaning, analyzing, and building ML models.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="{% url 'datasets:upload' %}" class="btn btn-gradient-primary px-4 py-2 fs-6 fw-bold">
+            <i class="fa-solid fa-cloud-arrow-up me-2"></i> Upload Your First Dataset
+        </a>
+        <a href="{% url 'scraper:home' %}" class="btn btn-outline-info px-4 py-2 fs-6 fw-bold">
+            <i class="fa-solid fa-spider me-2"></i> Scrape Data from Web
+        </a>
+    </div>
+</div>
+{% endif %}
+
 <!-- Metric Cards Row -->
 <div class="row g-3 g-md-4 mb-4">
     <div class="col-6 col-md-6 col-xl-3">

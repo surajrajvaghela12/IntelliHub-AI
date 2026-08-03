@@ -175,7 +175,7 @@
         </div>
         <div class="list-group list-group-flush">
             <a href="{% url 'dashboard:home' %}" class="nav-link-custom {% if request.resolver_match.app_name == 'dashboard' %}active{% endif %}">
-                <i class="fa-solid fa-chart-pie"></i> Interactive Dashboard
+                <i class="fa-solid fa-chart-pie"></i> Dashboard
             </a>
             <a href="{% url 'datasets:list' %}" class="nav-link-custom {% if request.resolver_match.app_name == 'datasets' %}active{% endif %}">
                 <i class="fa-solid fa-database"></i> Dataset Manager
@@ -189,9 +189,6 @@
             <a href="{% url 'ml_studio:home' %}" class="nav-link-custom {% if request.resolver_match.app_name == 'ml_studio' %}active{% endif %}">
                 <i class="fa-solid fa-robot"></i> ML Studio & AutoML
             </a>
-            <a href="{% url 'dl_studio:home' %}" class="nav-link-custom {% if request.resolver_match.app_name == 'dl_studio' %}active{% endif %}">
-                <i class="fa-solid fa-network-wired"></i> Deep Learning Studio
-            </a>
             <a href="{% url 'assistant:chat' %}" class="nav-link-custom {% if request.resolver_match.app_name == 'assistant' %}active{% endif %}">
                 <i class="fa-solid fa-comments"></i> AI Analyst Assistant
             </a>
@@ -200,6 +197,9 @@
             </a>
             <a href="{% url 'reports:home' %}" class="nav-link-custom {% if request.resolver_match.app_name == 'reports' %}active{% endif %}">
                 <i class="fa-solid fa-file-pdf"></i> AI Report Generator
+            </a>
+            <a href="{% url 'accounts:profile' %}" class="nav-link-custom {% if request.resolver_match.app_name == 'accounts' %}active{% endif %}">
+                <i class="fa-solid fa-user-gear"></i> Profile & Settings
             </a>
             {% if user.role == 'ADMIN' or user.is_superuser %}
             <a href="{% url 'admin_panel:home' %}" class="nav-link-custom {% if request.resolver_match.app_name == 'admin_panel' %}active{% endif %}">
@@ -230,9 +230,9 @@
             <div class="d-flex align-items-center gap-1 gap-sm-2 flex-shrink-0">
                 {% if user.is_authenticated %}
                 <div class="dropdown">
-                    <button class="btn btn-outline-light dropdown-toggle border-0 py-1 px-2 px-md-3" type="button" data-bs-toggle="dropdown">
-                        <i class="fa-solid fa-circle-user me-1 me-md-2 text-info fs-5"></i>
-                        <span class="fw-semibold">{{ user.username }}</span>
+                    <button class="btn dropdown-toggle border-0 py-1 px-2 px-md-3" type="button" data-bs-toggle="dropdown" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.1); border-radius: 10px;">
+                        <i class="fa-solid fa-circle-user me-1 me-md-2 fs-5" style="color: #38bdf8 !important;"></i>
+                        <span class="fw-semibold" style="color: #38bdf8 !important;">{{ user.username }}</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow">
                         <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="fa-solid fa-user-gear me-2"></i> Profile Settings</a></li>

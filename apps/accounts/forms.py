@@ -66,12 +66,11 @@ class UserLoginForm(forms.Form):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['bio', 'education', 'company', 'github', 'linkedin', 'photo', 'dark_mode']
+        fields = ['bio', 'education', 'company', 'github', 'linkedin', 'photo']
         widgets = {
             'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'education': forms.TextInput(attrs={'class': 'form-control'}),
             'company': forms.TextInput(attrs={'class': 'form-control'}),
             'github': forms.URLInput(attrs={'class': 'form-control'}),
             'linkedin': forms.URLInput(attrs={'class': 'form-control'}),
-            'dark_mode': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }

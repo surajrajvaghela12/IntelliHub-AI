@@ -69,6 +69,7 @@ def dashboard_home_view(request):
 
     recent_datasets = request.user.datasets.order_by('-updated_at')[:5]
     recent_models = TrainedModel.objects.filter(user=request.user).order_by('-created_at')[:5]
+    is_first_time = user_datasets == 0
 
     context = {
         'total_datasets': total_datasets,
@@ -82,6 +83,7 @@ def dashboard_home_view(request):
         'chart_accuracy_json': chart_accuracy_json,
         'recent_datasets': recent_datasets,
         'recent_models': recent_models,
+        'is_first_time': is_first_time,
     }
     return render(request, 'dashboard/dashboard.html', context)
 
